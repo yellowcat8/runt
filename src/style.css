@@ -1531,24 +1531,30 @@ p {
   }
   
   /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
+  .sticky-wrapper {
+    height: 100dvh !important;
+  }
   .scroll-grid {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    height: 100vh;
-    padding: 60px 1.25rem 1rem 1.25rem !important;
-    gap: 0.75rem !important;
+    height: 100dvh !important;
+    padding: 0 1.25rem !important;
     overflow: hidden;
+    position: relative !important;
   }
   .narrative-container {
-    height: 75px;
-    position: relative !important;
-    width: 100%;
-    margin: 0 auto !important;
-    text-align: center;
-    gap: 0 !important;
-    padding: 0 !important;
+    position: absolute !important;
+    top: 95px !important;
+    left: 1.5rem !important;
+    right: 1.5rem !important;
+    width: auto !important;
+    height: 75px !important;
+    margin: 0 !important;
+    text-align: center !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
   }
   .narrative-cue {
     position: absolute !important;
@@ -1574,11 +1580,11 @@ p {
     margin-bottom: 0.15rem;
   }
   .phone-pin-area {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    height: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
   }
   .phone-perspective {
     width: 150px !important;
