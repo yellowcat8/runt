@@ -1546,7 +1546,15 @@ p {
     transform: none !important;
   }
   .phone-mockup--scroll {
+    width: 220px;
+    height: 440px;
+    border-radius: 32px;
+    border-width: 6px;
     transform: none !important;
+  }
+  .phone-mockup--scroll .phone-screen,
+  .phone-mockup--scroll .phone-map-bg {
+    border-radius: 26px;
   }
   .card-3d {
     position: relative !important;
