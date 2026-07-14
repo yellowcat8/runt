@@ -14,32 +14,7 @@ function getScrollProgress(element) {
   return progress;
 }
 
-// 2. Initial Path Lengths
-const pathOcc = document.querySelector('#run-path-occ');
-const pathCrew = document.querySelector('#run-path-crew');
-let pathLengthOcc = 0;
-let pathLengthCrew = 0;
-
-if (pathOcc) {
-  pathLengthOcc = pathOcc.getTotalLength();
-  pathOcc.style.strokeDasharray = pathLengthOcc;
-  pathOcc.style.strokeDashoffset = pathLengthOcc;
-}
-if (pathCrew) {
-  pathLengthCrew = pathCrew.getTotalLength();
-  pathCrew.style.strokeDasharray = pathLengthCrew;
-  pathCrew.style.strokeDashoffset = pathLengthCrew;
-}
-
-// State tracking for avatar check-ins to prevent multiple pops
-const crewAvatars = [
-  { id: '#crew-avatar-1', threshold: 0.15, text: '✋ 지호 출석완료', triggered: false, x: 50, y: 420 },
-  { id: '#crew-avatar-2', threshold: 0.30, text: '✋ 민지 출석완료', triggered: false, x: 150, y: 320 },
-  { id: '#crew-avatar-3', threshold: 0.45, text: '✋ 대니얼 출석완료', triggered: false, x: 260, y: 200 },
-  { id: '#crew-avatar-4', threshold: 0.60, text: '✋ 유나 출석완료', triggered: false, x: 120, y: 80 }
-];
-
-// Main Scroll Listeners
+// 2. Main Scroll Listeners
 window.addEventListener('scroll', () => {
   const isMobile = window.innerWidth <= 1024;
   if (isMobile) return; // Fallback to static CSS rules on mobile
@@ -52,56 +27,15 @@ window.addEventListener('scroll', () => {
     // Update Cues active classes
     updateCues('occ-cue-', progress);
     
-    // SVG Draw Path (draws from 0% to 65% progress)
-    if (pathOcc) {
-      const drawProg = Math.min(progress / 0.65, 1);
-      pathOcc.style.strokeDashoffset = pathLengthOcc - (drawProg * pathLengthOcc);
-    }
-    
-    // Hotspots Scale & Opacity
-    const dot1 = document.getElementById('occ-dot-1');
-    const dot2 = document.getElementById('occ-dot-2');
-    
-    if (progress >= 0.35) {
-      if (dot1) {
-        dot1.style.setProperty('--occ-dot-scale', '1');
-        dot1.style.setProperty('--occ-dot-opacity', '1');
-      }
-    } else {
-      if (dot1) {
-        dot1.style.setProperty('--occ-dot-scale', '0');
-        dot1.style.setProperty('--occ-dot-opacity', '0');
-      }
-    }
-    
-    if (progress >= 0.52) {
-      if (dot2) {
-        dot2.style.setProperty('--occ-dot-scale', '1');
-        dot2.style.setProperty('--occ-dot-opacity', '1');
-      }
-    } else {
-      if (dot2) {
-        dot2.style.setProperty('--occ-dot-scale', '0');
-        dot2.style.setProperty('--occ-dot-opacity', '0');
-      }
-    }
-    
-    // Update Congestion Text
-    const occStatVal = document.getElementById('phone-occ-stat-val');
-    if (occStatVal) {
-      if (progress < 0.35) {
-        occStatVal.textContent = "조회 대기";
-      } else if (progress >= 0.35 && progress < 0.65) {
-        occStatVal.textContent = "보통(45%)";
-      } else {
-        occStatVal.textContent = "여유(34%)";
-      }
-    }
-    
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
     const phoneOcc = document.getElementById('phone-occ');
     const cardOcc = document.getElementById('card-occ');
     
+    if (phoneOcc) {
+      // Parallax scroll effect for the app screenshot background
+      phoneOcc.style.setProperty('--screen-scroll-y', (progress * -15).toString());
+    }
+    
+    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
     if (progress >= 0.65) {
       const stage = (progress - 0.65) / 0.35;
       
@@ -141,61 +75,15 @@ window.addEventListener('scroll', () => {
     // Update Cues active classes
     updateCues('crew-cue-', progress);
     
-    // SVG Draw Path (draws from 0% to 65% progress)
-    if (pathCrew) {
-      const drawProg = Math.min(progress / 0.65, 1);
-      pathCrew.style.strokeDashoffset = pathLengthCrew - (drawProg * pathLengthCrew);
-    }
-    
-    // Avatar check-ins and popup text triggers
-    const phoneCrewScreen = document.querySelector('#phone-crew .phone-screen');
-    
-    crewAvatars.forEach(avatar => {
-      const el = document.querySelector(avatar.id);
-      if (!el) return;
-      
-      if (progress >= avatar.threshold) {
-        if (!el.classList.contains('active')) {
-          el.classList.add('active');
-          if (!avatar.triggered) {
-            avatar.triggered = true;
-            triggerCheer(phoneCrewScreen, avatar.x, avatar.y, avatar.text);
-          }
-        }
-      } else {
-        el.classList.remove('active');
-        avatar.triggered = false;
-      }
-    });
-    
-    // Update Attendance Stats on screen
-    const attendanceVal = document.getElementById('phone-crew-attendance-val');
-    const noshowVal = document.getElementById('phone-crew-noshow-val');
-    const settleVal = document.getElementById('phone-crew-settle-val');
-    
-    if (attendanceVal) {
-      let count = 0;
-      if (progress >= 0.15) count = 1;
-      if (progress >= 0.30) count = 2;
-      if (progress >= 0.45) count = 3;
-      if (progress >= 0.60) count = 4;
-      attendanceVal.textContent = `${count} / 4명`;
-    }
-    
-    if (settleVal) {
-      if (progress < 0.65) {
-        settleVal.textContent = "대기중";
-      } else if (progress >= 0.65 && progress < 0.85) {
-        settleVal.textContent = "정산진행";
-      } else {
-        settleVal.textContent = "정산완료";
-      }
-    }
-    
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
     const phoneCrew = document.getElementById('phone-crew');
     const cardBilling = document.getElementById('card-billing');
     
+    if (phoneCrew) {
+      // Parallax scroll effect for the app screenshot background
+      phoneCrew.style.setProperty('--screen-scroll-y', (progress * -15).toString());
+    }
+    
+    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
     if (progress >= 0.65) {
       const stage = (progress - 0.65) / 0.35;
       
@@ -247,21 +135,6 @@ function updateCues(prefix, progress) {
   }
 }
 
-function triggerCheer(container, x, y, text) {
-  if (!container) return;
-
-  const cheer = document.createElement('div');
-  cheer.className = 'floating-cheer';
-  cheer.textContent = text;
-  cheer.style.left = `${x}px`;
-  cheer.style.top = `${y - 25}px`;
-  container.appendChild(cheer);
-  
-  setTimeout(() => {
-    cheer.remove();
-  }, 2500);
-}
-
 // 3. Stats Section Intersection Count-Up Animation (runt Metrics)
 const statsSection = document.querySelector('.stats');
 let statsAnimated = false;
@@ -285,11 +158,9 @@ if (statsSection) {
       if (entry.isIntersecting && !statsAnimated) {
         statsAnimated = true;
         
-        const distEl = document.getElementById('stat-dist');
         const crewsEl = document.getElementById('stat-crews');
         const cheersEl = document.getElementById('stat-cheers');
 
-        if (distEl) animateValue(distEl, 0, 48512000, 2000, v => v.toLocaleString());
         if (crewsEl) animateValue(crewsEl, 0, 1482, 1800, v => v.toLocaleString());
         if (cheersEl) animateValue(cheersEl, 0, 12895, 1500, v => v.toLocaleString());
         
@@ -302,16 +173,6 @@ if (statsSection) {
 }
 
 function startLiveIncrements() {
-  setInterval(() => {
-    const el = document.getElementById('stat-dist');
-    if (!el) return;
-    let currentVal = parseInt(el.textContent.replace(/,/g, ''));
-    if (isNaN(currentVal)) return;
-    const increments = [5000, 8000, 10000, 15000];
-    currentVal += increments[Math.floor(Math.random() * increments.length)];
-    el.textContent = currentVal.toLocaleString();
-  }, 2500);
-  
   setInterval(() => {
     const el = document.getElementById('stat-cheers');
     if (!el) return;
