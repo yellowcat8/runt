@@ -38,15 +38,15 @@ window.addEventListener('scroll', () => {
     
     if (phoneOcc) {
       // Parallax scroll effect for the app screenshot background
-      // Pans completely between 0.0 and 0.6 progress
-      const panProgress = Math.min(progress / 0.6, 1);
+      // Pans completely between 0.0 and 0.5 progress
+      const panProgress = Math.min(progress / 0.5, 1);
       phoneOcc.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 60% to 85% progress)
-    if (progress >= 0.6) {
-      // Scale stage from 0 to 1 as progress goes from 0.6 to 0.85
-      const stage = Math.min((progress - 0.6) / 0.25, 1);
+    // 3D Tilt Phone & Rise Card (occurs from 50% to 75% progress)
+    if (progress >= 0.5) {
+      // Scale stage from 0 to 1 as progress goes from 0.5 to 0.75
+      const stage = Math.min((progress - 0.5) / 0.25, 1);
       
       if (phoneOcc) {
         phoneOcc.style.setProperty('--tilt-x', (stage * 55).toString());
@@ -89,15 +89,15 @@ window.addEventListener('scroll', () => {
     
     if (phoneCrew) {
       // Parallax scroll effect for the app screenshot background
-      // Pans completely between 0.0 and 0.6 progress
-      const panProgress = Math.min(progress / 0.6, 1);
+      // Pans completely between 0.0 and 0.5 progress
+      const panProgress = Math.min(progress / 0.5, 1);
       phoneCrew.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 60% to 85% progress)
-    if (progress >= 0.6) {
-      // Scale stage from 0 to 1 as progress goes from 0.6 to 0.85
-      const stage = Math.min((progress - 0.6) / 0.25, 1);
+    // 3D Tilt Phone & Rise Card (occurs from 50% to 75% progress)
+    if (progress >= 0.5) {
+      // Scale stage from 0 to 1 as progress goes from 0.5 to 0.75
+      const stage = Math.min((progress - 0.5) / 0.25, 1);
       
       if (phoneCrew) {
         phoneCrew.style.setProperty('--tilt-x', (stage * 55).toString());
@@ -132,11 +132,11 @@ function updateCues(prefix, progress) {
   
   if (!cue1 || !cue2 || !cue3) return;
   
-  if (progress < 0.3) {
+  if (progress < 0.25) {
     cue1.classList.add('active');
     cue2.classList.remove('active');
     cue3.classList.remove('active');
-  } else if (progress >= 0.3 && progress < 0.6) {
+  } else if (progress >= 0.25 && progress < 0.5) {
     cue1.classList.remove('active');
     cue2.classList.add('active');
     cue3.classList.remove('active');

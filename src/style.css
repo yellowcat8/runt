@@ -1532,6 +1532,9 @@ p {
   }
   
   /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
+  .scroll-track {
+    height: 450vh !important;
+  }
   .sticky-wrapper {
     top: var(--header-height) !important;
     height: calc(100dvh - var(--header-height)) !important;
