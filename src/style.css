@@ -40,12 +40,13 @@ html {
   background-color: var(--bg-dark);
   color: var(--text-primary);
   font-family: var(--font-family);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   position: relative;
+  overflow-x: clip;
 }
 
 /* Background Ambient Glows */
