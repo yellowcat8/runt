@@ -372,8 +372,8 @@ p {
 
 .sticky-wrapper {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1532,21 +1532,22 @@ p {
   
   /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
   .sticky-wrapper {
-    height: 100dvh !important;
+    top: var(--header-height) !important;
+    height: calc(100dvh - var(--header-height)) !important;
   }
   .scroll-grid {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    height: 100dvh !important;
+    height: 100% !important;
     padding: 0 1.25rem !important;
     overflow: hidden;
     position: relative !important;
   }
   .narrative-container {
     position: absolute !important;
-    top: 95px !important;
+    top: 20px !important;
     left: 1.5rem !important;
     right: 1.5rem !important;
     width: auto !important;
