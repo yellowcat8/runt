@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>runt | 크루 관리와 예약을 한번에, 러닝메이트</title>
+    <meta name="description" content="runt(런트)는 러닝 크루 개설, 간편 자동정산, 원터치 출석 체크 및 노쇼 관리, 코스 시간대 예약과 실시간 혼잡도 점유율 표시를 지원하는 러닝 매니지먼트 플랫폼입니다." />
+    <meta name="keywords" content="runt, 런트, 러닝메이트, 러닝 앱, 러닝 크루, 자동정산, 출석체크, 노쇼 방지, 코스 예약, 실시간 점유율, 한강 러닝" />
+    <meta name="author" content="runt Team" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="runt | 크루 관리와 예약을 한번에, 러닝메이트" />
+    <meta property="og:description" content="번거로운 정산과 출석 확인은 끝. 런트와 함께 오직 달리기만 집중하세요." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1200&h=630&fit=crop" />
+    <meta property="og:url" content="https://runt.run" />
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  </head>
+  <body>
+    <!-- Topbar Navigation -->
+    <header class="header" id="header">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--primary);">
+          <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        runt<span>.</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#track-occupancy" class="nav-link">코스 점유율</a></li>
+          <li><a href="#track-crew" class="nav-link">크루 관리</a></li>
+          <li><a href="#stats" class="nav-link">실시간 현황</a></li>
+          <li><a href="#faq" class="nav-link">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+      <a href="#cta" class="header-cta">런트 다운로드</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      
+      <!-- Hero Section -->
+      <section class="hero container section">
+        <div class="hero__grid">
+          <div class="hero__content">
+            <div class="tagline">
+              <span class="tagline__dot"></span>
+              Smart Running Mate
+            </div>
+            <h1 class="hero__title">
+              크루 러닝의 번거로움 끝,<br />
+              <span class="hero__title-gradient">오직 달리기만.</span>
+            </h1>
+            <p class="hero__desc">
+              회비 및 모임비 자동 정산부터 원터치 출석체크와 노쇼 방지, 혼잡하지 않은 코스 실시간 예약까지. 러닝 크루 운영의 복잡한 운영과 행정을 런트가 해결합니다.
+            </p>
+            <div class="hero__buttons">
+              <a href="#cta" class="btn btn--primary">
+                무료로 시작하기
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="#features" class="btn btn--secondary">기능 확인</a>
+            </div>
+          </div>
+          
+          <!-- Side-by-Side Decorative App Preview (Image 1 style) -->
+          <div class="hero__preview-container">
+            <div class="preview-phone preview-phone--left">
+              <div class="preview-phone__inner">
+                <img src="/runt_occupancy_ui.png" alt="runt 코스 점유율 화면" class="preview-phone__img" />
+              </div>
+            </div>
+            <div class="preview-phone preview-phone--right">
+              <div class="preview-phone__inner">
+                <img src="/runt_crew_management_ui.png" alt="runt 크루 관리 화면" class="preview-phone__img" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: 실시간 코스 점유율 (Course Occupancy Scroll Animation) -->
+      <section class="scroll-track" id="track-occupancy">
+        <div class="sticky-wrapper">
+          <div class="scroll-grid">
+            <!-- Left: Narrative Cues -->
+            <div class="narrative-container">
+              <div class="narrative-cue active" id="occ-cue-1">
+                <span class="cue-num">01</span>
+                <h2 class="cue-title">예약. (Reserve)</h2>
+                <p class="cue-desc">원하는 공원, 코스, 시간대를 선점하여 크루 모임 일정을 미리 등록하세요.</p>
+              </div>
+              <div class="narrative-cue" id="occ-cue-2">
+                <span class="cue-num">02</span>
+                <h2 class="cue-title">확정. (Check)</h2>
+                <p class="cue-desc">러너들의 밀도를 실시간 분석하여 각 코스의 실시간 점유율(혼잡도)을 3색 신호등으로 파악합니다.</p>
+              </div>
+              <div class="narrative-cue" id="occ-cue-3">
+                <span class="cue-num">03</span>
+                <h2 class="cue-title">쾌적. (Run)</h2>
+                <p class="cue-desc">복잡한 시간대나 혼잡 코스를 피해 쾌적하고 널찍하게 뛸 수 있는 나만의 최적 러닝 스팟을 예약하세요.</p>
+              </div>
+            </div>
+            
+            <!-- Right: Pinned Phone Mockup -->
+            <div class="phone-pin-area">
+              <div class="phone-perspective">
+                <div class="phone-mockup phone-mockup--scroll" id="phone-occ">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen preserve-3d">
+                    
+                    <!-- Map Canvas -->
+                    <div class="phone-map-bg">
+                      <svg class="map-canvas" viewBox="0 0 290 610" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="routeGradient1" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ccff00" />
+                            <stop offset="100%" stop-color="#00f2fe" />
+                          </linearGradient>
+                        </defs>
+                        
+                        <!-- Water Feature -->
+                        <path class="map-water" d="M -10 220 Q 80 200 160 240 T 310 210 L 310 260 L -10 260 Z" />
+                        
+                        <!-- Parks -->
+                        <rect class="map-landmark" x="180" y="70" width="80" height="70" rx="12" />
+                        <rect class="map-landmark" x="20" y="440" width="70" height="90" rx="12" />
+                        
+                        <!-- Minor Roads Grid -->
+                        <g class="map-road">
+                          <line x1="20" y1="0" x2="20" y2="610" opacity="0.3" />
+                          <line x1="90" y1="0" x2="90" y2="610" opacity="0.3" />
+                          <line x1="160" y1="0" x2="160" y2="610" opacity="0.3" />
+                          <line x1="230" y1="0" x2="230" y2="610" opacity="0.3" />
+                          
+                          <line x1="0" y1="60" x2="290" y2="60" opacity="0.3" />
+                          <line x1="0" y1="130" x2="290" y2="130" opacity="0.3" />
+                          <line x1="0" y1="320" x2="290" y2="320" opacity="0.3" />
+                          <line x1="0" y1="390" x2="290" y2="390" opacity="0.3" />
+                          <line x1="0" y1="460" x2="290" y2="460" opacity="0.3" />
+                          <line x1="0" y1="530" x2="290" y2="530" opacity="0.3" />
+                        </g>
+                        
+                        <!-- Major Roads -->
+                        <g class="map-road map-road--major">
+                          <path d="M 120 0 L 120 610" />
+                          <path d="M 0 190 C 100 190, 180 170, 290 190" />
+                          <path d="M 0 490 L 290 490" />
+                        </g>
+                        
+                        <!-- Active Running Route Drawing (Path length: approx 770) -->
+                        <path class="map-route-glow" d="M 50 500 L 50 420 L 150 420 L 150 280 L 260 280 L 260 160 L 120 160 L 120 80" />
+                        <path class="map-route" id="run-path-occ" d="M 50 500 L 50 420 L 150 420 L 150 280 L 260 280 L 260 160 L 120 160 L 120 80" />
+                      </svg>
+                      
+                      <!-- Occupancy spots along the road -->
+                      <div class="map-occupancy-dot map-occupancy-dot--orange" id="occ-dot-1" style="left: 120px; top: 190px;"></div>
+                      <div class="map-occupancy-dot map-occupancy-dot--green" id="occ-dot-2" style="left: 230px; top: 490px;"></div>
+                    </div>
+                    
+                    <!-- Phone Interface Overlay -->
+                    <div class="phone-ui">
+                      <div class="phone-header">
+                        <div class="phone-room-badge">
+                          <span class="room-dot"></span>
+                          <span class="room-name">한강 코스 실시간 예약</span>
+                        </div>
+                        <span class="phone-time">09:41</span>
+                      </div>
+                      
+                      <div class="phone-stats-card">
+                        <div class="phone-stat-item">
+                          <label>예약구간</label>
+                          <span class="cyan-text">반포대교 A코스</span>
+                        </div>
+                        <div class="phone-stat-item">
+                          <label>시간대</label>
+                          <span>저녁 8시 - 9시</span>
+                        </div>
+                        <div class="phone-stat-item">
+                          <label>실시간혼잡도</label>
+                          <span id="phone-occ-stat-val">조회 대기</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 3D Rising Occupancy Card -->
+                    <div class="card-3d card-3d--occupancy" id="card-occ">
+                      <div class="card-3d__glow"></div>
+                      <div class="card-3d__header">
+                        <span>LIVE DENSITY</span>
+                        <div class="card-3d__badge">34% 여유</div>
+                      </div>
+                      <div class="card-3d__title">반포 한강공원 A코스</div>
+                      <div class="card-3d__stats">
+                        <div class="card-3d__stat">
+                          <label>대기 예약 크루</label>
+                          <span>2개 크루</span>
+                        </div>
+                        <div class="card-3d__stat">
+                          <label>실시간 러너</label>
+                          <span>34명 밀집</span>
+                        </div>
+                      </div>
+                      <div class="card-3d__graph">
+                        <div class="graph-bar" style="height: 35%"></div>
+                        <div class="graph-bar" style="height: 48%"></div>
+                        <div class="graph-bar" style="height: 72%"></div>
+                        <div class="graph-bar active" style="height: 34%"></div>
+                        <div class="graph-bar" style="height: 20%"></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: 스마트 크루 관리 & 자동정산 (Crew Management Scroll Animation) -->
+      <section class="scroll-track" id="track-crew">
+        <div class="sticky-wrapper">
+          <div class="scroll-grid scroll-grid--reversed">
+            <!-- Right: Narrative Cues -->
+            <div class="narrative-container">
+              <div class="narrative-cue active" id="crew-cue-1">
+                <span class="cue-num">01</span>
+                <h2 class="cue-title">출석. (Check-in)</h2>
+                <p class="cue-desc">모임 위치 도착 시 GPS 원터치 버튼으로 신속하게 참여를 확정합니다.</p>
+              </div>
+              <div class="narrative-cue" id="crew-cue-2">
+                <span class="cue-num">02</span>
+                <h2 class="cue-title">노쇼. (Attendance)</h2>
+                <p class="cue-desc">참석 약속을 지키지 못한 무단 노쇼 기록을 추적하여 신뢰성 있는 멤버 데이터로 관리합니다.</p>
+              </div>
+              <div class="narrative-cue" id="crew-cue-3">
+                <span class="cue-num">03</span>
+                <h2 class="cue-title">정산. (Settle)</h2>
+                <p class="cue-desc">정기 회비와 뒷풀이 비용 영수증 한 장으로, 참여 멤버들에게 간편 송금 링크가 연동된 자동 N분의 1 청구를 즉시 전송합니다.</p>
+              </div>
+            </div>
+            
+            <!-- Left: Pinned Phone Mockup -->
+            <div class="phone-pin-area">
+              <div class="phone-perspective">
+                <div class="phone-mockup phone-mockup--scroll" id="phone-crew">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen preserve-3d">
+                    
+                    <!-- Map Canvas -->
+                    <div class="phone-map-bg">
+                      <svg class="map-canvas" viewBox="0 0 290 610" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="routeGradient2" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ccff00" />
+                            <stop offset="100%" stop-color="#00f2fe" />
+                          </linearGradient>
+                        </defs>
+                        
+                        <!-- Water Feature -->
+                        <path class="map-water" d="M -10 220 Q 80 200 160 240 T 310 210 L 310 260 L -10 260 Z" />
+                        
+                        <!-- Parks -->
+                        <rect class="map-landmark" x="180" y="70" width="80" height="70" rx="12" />
+                        <rect class="map-landmark" x="20" y="440" width="70" height="90" rx="12" />
+                        
+                        <!-- Minor Roads Grid -->
+                        <g class="map-road">
+                          <line x1="20" y1="0" x2="20" y2="610" opacity="0.3" />
+                          <line x1="90" y1="0" x2="90" y2="610" opacity="0.3" />
+                          <line x1="160" y1="0" x2="160" y2="610" opacity="0.3" />
+                          <line x1="230" y1="0" x2="230" y2="610" opacity="0.3" />
+                          
+                          <line x1="0" y1="60" x2="290" y2="60" opacity="0.3" />
+                          <line x1="0" y1="130" x2="290" y2="130" opacity="0.3" />
+                          <line x1="0" y1="320" x2="290" y2="320" opacity="0.3" />
+                          <line x1="0" y1="390" x2="290" y2="390" opacity="0.3" />
+                          <line x1="0" y1="460" x2="290" y2="460" opacity="0.3" />
+                          <line x1="0" y1="530" x2="290" y2="530" opacity="0.3" />
+                        </g>
+                        
+                        <!-- Major Roads -->
+                        <g class="map-road map-road--major">
+                          <path d="M 120 0 L 120 610" />
+                          <path d="M 0 190 C 100 190, 180 170, 290 190" />
+                          <path d="M 0 490 L 290 490" />
+                        </g>
+                        
+                        <!-- Reserved route path -->
+                        <path class="map-route-glow" d="M 50 500 L 50 420 L 150 420 L 150 280 L 260 280 L 260 160 L 120 160 L 120 80" />
+                        <path class="map-route" id="run-path-crew" d="M 50 500 L 50 420 L 150 420 L 150 280 L 260 280 L 260 160 L 120 160 L 120 80" />
+                      </svg>
+                      
+                      <!-- Runner Avatars on Map (Coordinates correspond to path turns) -->
+                      <!-- Jiho: 50, 420. Minji: 150, 320. Daniel: 260, 200. Yuna: 120, 80 -->
+                      <div class="map-avatar map-avatar--leader" id="crew-avatar-1" style="left: 50px; top: 420px; background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&h=100&fit=crop');"></div>
+                      <div class="map-avatar" id="crew-avatar-2" style="left: 150px; top: 320px; background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&fit=crop');"></div>
+                      <div class="map-avatar" id="crew-avatar-3" style="left: 260px; top: 200px; background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&h=100&fit=crop');"></div>
+                      <div class="map-avatar" id="crew-avatar-4" style="left: 120px; top: 80px; background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&h=100&fit=crop');"></div>
+                    </div>
+                    
+                    <!-- Phone Interface Overlay -->
+                    <div class="phone-ui">
+                      <div class="phone-header">
+                        <div class="phone-room-badge">
+                          <span class="room-dot"></span>
+                          <span class="room-name">여의도 야간런 크루 모임</span>
+                        </div>
+                        <span class="phone-time">20:15</span>
+                      </div>
+                      
+                      <div class="phone-stats-card">
+                        <div class="phone-stat-item">
+                          <label>출석인원</label>
+                          <span class="cyan-text" id="phone-crew-attendance-val">0 / 4명</span>
+                        </div>
+                        <div class="phone-stat-item">
+                          <label>노쇼인원</label>
+                          <span id="phone-crew-noshow-val">0명</span>
+                        </div>
+                        <div class="phone-stat-item">
+                          <label>자동정산</label>
+                          <span id="phone-crew-settle-val">대기중</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 3D Rising Billing Card -->
+                    <div class="card-3d card-3d--billing" id="card-billing">
+                      <div class="card-3d__glow" style="background: radial-gradient(circle at top right, rgba(0, 242, 254, 0.2) 0%, transparent 60%);"></div>
+                      <div class="card-3d__header">
+                        <span>BILL REPORT</span>
+                        <div class="card-3d__badge" style="background: rgba(0, 242, 254, 0.1); color: var(--secondary); border-color: rgba(0, 242, 254, 0.25);">자동정산 완료</div>
+                      </div>
+                      <div class="card-3d__title">여의도 야간런 뒷풀이</div>
+                      <div class="card-3d__billing-list">
+                        <div class="billing-row">
+                          <span>김지호 (리더)</span>
+                          <span class="checked">이체 완료 ✓</span>
+                        </div>
+                        <div class="billing-row">
+                          <span>이민지</span>
+                          <span class="checked">이체 완료 ✓</span>
+                        </div>
+                        <div class="billing-row">
+                          <span>Daniel</span>
+                          <span class="checked">이체 완료 ✓</span>
+                        </div>
+                        <div class="billing-row">
+                          <span>정유나</span>
+                          <span class="checked">이체 완료 ✓</span>
+                        </div>
+                      </div>
+                      <div class="card-3d__footer">
+                        <label>총 정산 금액</label>
+                        <span>₩ 20,000</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Stats & Realtime activity section -->
+      <section class="stats section" id="stats">
+        <div class="container reveal">
+          <div class="stats__grid">
+            <div class="stat-card">
+              <strong class="stat-card__num" id="stat-dist">0</strong>
+              <span class="stat-card__label">오늘 자동 정산된 회비 (원)</span>
+            </div>
+            <div class="stat-card">
+              <strong class="stat-card__num" id="stat-crews">0</strong>
+              <span class="stat-card__label">운영 중인 활성 크루</span>
+            </div>
+            <div class="stat-card">
+              <strong class="stat-card__num" id="stat-cheers">0</strong>
+              <span class="stat-card__label">이번 주 예약 완료 코스</span>
+            </div>
+          </div>
+
+          <!-- Live Activity Feed Simulation -->
+          <div class="live-feed-section">
+            <div class="live-feed-title">
+              <span></span> LIVE CREW ACTIVITY
+            </div>
+            <div class="live-feed-wrapper">
+              <div class="live-feed-container" id="feed-container">
+                <!-- Feed Items will be dynamically generated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature Grid Section -->
+      <section class="features section" id="features">
+        <div class="container">
+          <div class="features__header reveal">
+            <div class="tagline">Core Features</div>
+            <h2 class="features__title">러닝 크루 관리를 스마트하게</h2>
+            <p>회비 청구, 출석 명부 작성, 코스 조율로 낭비되던 리더의 시간과 노력을 100% 줄여줍니다.</p>
+          </div>
+          
+          <div class="features__grid reveal">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <line x1="12" y1="4" x2="12" y2="20"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+              </div>
+              <h3 class="feature-card__title">1. 크루 개설 및 자동정산</h3>
+              <p class="feature-card__body">모임 후 지출 증빙을 올리면 참가 확정 멤버에게 원터치로 1/N 회비 정산을 자동 청구합니다. 카카오페이/토스 간편 링크 연동으로 미납금 걱정을 덜어드립니다.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                </svg>
+              </div>
+              <h3 class="feature-card__title">2. 원터치 출석 & 노쇼 관리</h3>
+              <p class="feature-card__body">모임 장소 도착 시 원터치 GPS 출석 체크와 참석 확정이 진행됩니다. 무단 불참(노쇼) 데이터를 자동 트래킹하여 신뢰할 수 있는 크루 참여율을 보장합니다.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <h3 class="feature-card__title">3. 코스 예약 및 실시간 점유율</h3>
+              <p class="feature-card__body">전국 주요 공원과 마라톤 코스를 선예약하여 크루 일정을 공지하고, 실시간 혼잡도(점유율)를 백분율로 모니터링하여 복잡하고 복잡한 시간대를 똑똑하게 피해갈 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Accordion Section -->
+      <section class="faq section" id="faq">
+        <div class="container reveal">
+          <div class="faq__container">
+            <div class="faq__header">
+              <div class="tagline">FAQ</div>
+              <h2 class="faq__title">자주 묻는 질문</h2>
+            </div>
+            <div class="faq__list">
+              <details class="faq-item">
+                <summary class="faq-item__q">모임 회비나 뒷풀이 자동 정산은 어떻게 진행되나요?</summary>
+                <div class="faq-item__a">
+                  크루 모임 중 지출된 비용의 영수증 사진을 첨부하거나 금액을 입력하면, 원터치 출석체크로 '참석 확정'된 멤버들에게 자동으로 1/N 정산 요청 알림이 발송됩니다. 송금 완료 여부는 실시간으로 크루장 대시보드에 업데이트됩니다.
+                </div>
+              </details>
+              
+              <details class="faq-item">
+                <summary class="faq-item__q">노쇼 및 출석 관리는 어떻게 이루어지나요?</summary>
+                <div class="faq-item__a">
+                  런트는 GPS 기반으로 실제 약속된 러닝 스팟에 제시간에 도착해야 '원터치 출석'이 인정됩니다. 정당한 사유 없이 사전 참석 취소를 하지 않거나 무단 불참하는 경우 '노쇼 카운트'가 증가하며, 크루별로 지정된 노쇼 제한 규정에 따라 경고 및 참석 배제가 자동 적용됩니다.
+                </div>
+              </details>
+              
+              <details class="faq-item">
+                <summary class="faq-item__q">코스 예약과 실시간 점유율은 어떻게 연계되나요?</summary>
+                <div class="faq-item__a">
+                  특정 날짜의 공원이나 강변 코스를 등록해두면 다른 크루들과 겹치지 않게 조율할 수 있습니다. 또한, 활성 앱 러너들의 밀도 통계를 융합하여 '실시간 점유율'을 녹색(여유), 주황색(보통), 적색(혼잡) 신호등 형태로 한눈에 보여줍니다.
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action Section -->
+      <section class="cta container section" id="cta">
+        <div class="cta__card reveal">
+          <h2 class="cta__title">지금 런트와 함께 깔끔한 러닝을</h2>
+          <p class="cta__desc">크루 관리자도, 러너도 복잡한 정산과 출석 명부에서 해방될 시간. App Store와 Google Play에서 '런트'를 만나보세요.</p>
+          <div class="store-buttons">
+            <a href="#" class="store-btn">
+              <span class="store-btn__icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.19 12.04c.02 2.09 1.83 2.79 1.85 2.8-.02.05-.29 1-.95 1.98-.57.84-1.16 1.67-2.09 1.69-.91.02-1.2-.54-2.24-.54-1.04 0-1.37.52-2.22.56-.89.03-1.57-.9-2.15-1.73-1.18-1.71-2.09-4.83-.87-6.95.61-1.05 1.69-1.71 2.87-1.73.85-.02 1.65.58 2.24.58.59 0 1.7-.72 2.87-.62.49.02 1.88.2 2.77 1.5-.07.04-1.65.96-1.63 2.46Zm-1.89-4.53c.48-.58.8-1.39.71-2.19-.69.03-1.53.46-2.03 1.04-.45.52-.84 1.34-.73 2.12.77.06 1.57-.39 2.05-.97Z"/>
+                </svg>
+              </span>
+              <span class="store-btn__label">
+                <span class="store-btn__sub">Download on the</span>
+                <span class="store-btn__main">App Store</span>
+              </span>
+            </a>
+            <a href="#" class="store-btn">
+              <span class="store-btn__icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5 3.22a2.03 2.03 0 0 0-.47 1.41v14.74c0 .54.18.98.47 1.41l9.16-9.16L5 3.22ZM18.98 11l-3.32-1.92-2.82 2.82 2.82 2.82L18.98 13c.69-.4 1.02-1.01 1.02-1.6 0-.59-.33-1.2-1.02-1.6ZM5.98 3.03l8.84 5.1 2.58-2.58-10.9-6.3c-.35-.2-.73-.28-1.1-.24.23.23.43.61.58 2.02ZM5.98 20.97c-.15 1.41-.35 1.79-.58 2.02.37.04.75-.04 1.1-.24l10.9-6.3-2.58-2.58-8.84 5.1Z"/>
+                </svg>
+              </span>
+              <span class="store-btn__label">
+                <span class="store-btn__sub">GET IT ON</span>
+                <span class="store-btn__main">Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <span class="footer__logo">runt<span>.</span></span>
+            <p class="footer__desc">귀찮은 회계와 행정 업무를 넘어, 크루와 러너의 순수한 달리기를 돕습니다.</p>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">서비스</span>
+            <ul class="footer__links">
+              <li><a href="#features" class="footer__link">핵심 기능</a></li>
+              <li><a href="#stats" class="footer__link">실시간 현황</a></li>
+              <li><a href="#faq" class="footer__link">자주 묻는 질문</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">고객 지원</span>
+            <ul class="footer__links">
+              <li><a href="#" class="footer__link">문의하기</a></li>
+              <li><a href="#" class="footer__link">도움말 센터</a></li>
+              <li><a href="#" class="footer__link">공지사항</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <span class="footer__col-title">법적 고지</span>
+            <ul class="footer__links">
+              <li><a href="#" class="footer__link">이용약관</a></li>
+              <li><a href="#" class="footer__link">개인정보처리방침</a></li>
+              <li><a href="#" class="footer__link">정산거래 규정</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span class="footer__copy">© 2026 runt Inc. All rights reserved.</span>
+          <div class="footer__meta">
+            <a href="#" class="footer__meta-link">Instagram</a>
+            <a href="#" class="footer__meta-link">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
