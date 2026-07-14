@@ -38,12 +38,15 @@ window.addEventListener('scroll', () => {
     
     if (phoneOcc) {
       // Parallax scroll effect for the app screenshot background
-      phoneOcc.style.setProperty('--screen-scroll-y', (progress * -15).toString());
+      // Pans completely between 0.0 and 0.6 progress
+      const panProgress = Math.min(progress / 0.6, 1);
+      phoneOcc.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
-    if (progress >= 0.65) {
-      const stage = (progress - 0.65) / 0.35;
+    // 3D Tilt Phone & Rise Card (occurs from 60% to 85% progress)
+    if (progress >= 0.6) {
+      // Scale stage from 0 to 1 as progress goes from 0.6 to 0.85
+      const stage = Math.min((progress - 0.6) / 0.25, 1);
       
       if (phoneOcc) {
         phoneOcc.style.setProperty('--tilt-x', (stage * 55).toString());
@@ -86,12 +89,15 @@ window.addEventListener('scroll', () => {
     
     if (phoneCrew) {
       // Parallax scroll effect for the app screenshot background
-      phoneCrew.style.setProperty('--screen-scroll-y', (progress * -15).toString());
+      // Pans completely between 0.0 and 0.6 progress
+      const panProgress = Math.min(progress / 0.6, 1);
+      phoneCrew.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
-    if (progress >= 0.65) {
-      const stage = (progress - 0.65) / 0.35;
+    // 3D Tilt Phone & Rise Card (occurs from 60% to 85% progress)
+    if (progress >= 0.6) {
+      // Scale stage from 0 to 1 as progress goes from 0.6 to 0.85
+      const stage = Math.min((progress - 0.6) / 0.25, 1);
       
       if (phoneCrew) {
         phoneCrew.style.setProperty('--tilt-x', (stage * 55).toString());
@@ -126,11 +132,11 @@ function updateCues(prefix, progress) {
   
   if (!cue1 || !cue2 || !cue3) return;
   
-  if (progress < 0.33) {
+  if (progress < 0.3) {
     cue1.classList.add('active');
     cue2.classList.remove('active');
     cue3.classList.remove('active');
-  } else if (progress >= 0.33 && progress < 0.66) {
+  } else if (progress >= 0.3 && progress < 0.6) {
     cue1.classList.remove('active');
     cue2.classList.add('active');
     cue3.classList.remove('active');

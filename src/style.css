@@ -367,7 +367,7 @@ p {
 /* Sticky Scroll Track & Grid */
 .scroll-track {
   position: relative;
-  height: 250vh; /* scroll distance */
+  height: 350vh; /* scroll distance */
 }
 
 .sticky-wrapper {
