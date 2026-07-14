@@ -25,8 +25,6 @@ function getScrollProgress(element) {
 
 // 2. Main Scroll Listeners
 window.addEventListener('scroll', () => {
-  const isMobile = window.innerWidth <= 1024;
-
   // --- SECTION 1: COURSE OCCUPANCY ---
   const occTrack = document.getElementById('track-occupancy');
   if (occTrack) {
@@ -43,36 +41,34 @@ window.addEventListener('scroll', () => {
       phoneOcc.style.setProperty('--screen-scroll-y', (progress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100% - only on desktop)
-    if (!isMobile) {
-      if (progress >= 0.65) {
-        const stage = (progress - 0.65) / 0.35;
+    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
+    if (progress >= 0.65) {
+      const stage = (progress - 0.65) / 0.35;
+      
+      if (phoneOcc) {
+        phoneOcc.style.setProperty('--tilt-x', (stage * 55).toString());
+        phoneOcc.style.setProperty('--tilt-z', (stage * 15).toString());
+        phoneOcc.style.setProperty('--translate-y', (stage * -15).toString());
+      }
+      if (cardOcc) {
+        cardOcc.style.setProperty('--card-z', (stage * 65).toString());
+        cardOcc.style.setProperty('--card-scale', stage.toString());
+        cardOcc.style.setProperty('--card-opacity', stage.toString());
         
-        if (phoneOcc) {
-          phoneOcc.style.setProperty('--tilt-x', (stage * 55).toString());
-          phoneOcc.style.setProperty('--tilt-z', (stage * 15).toString());
-          phoneOcc.style.setProperty('--translate-y', (stage * -15).toString());
-        }
-        if (cardOcc) {
-          cardOcc.style.setProperty('--card-z', (stage * 65).toString());
-          cardOcc.style.setProperty('--card-scale', stage.toString());
-          cardOcc.style.setProperty('--card-opacity', stage.toString());
-          
-          // Activate bars inside graph
-          const bars = cardOcc.querySelectorAll('.graph-bar');
-          bars.forEach(bar => bar.classList.add('active'));
-        }
-      } else {
-        if (phoneOcc) {
-          phoneOcc.style.setProperty('--tilt-x', '0');
-          phoneOcc.style.setProperty('--tilt-z', '0');
-          phoneOcc.style.setProperty('--translate-y', '0');
-        }
-        if (cardOcc) {
-          cardOcc.style.setProperty('--card-z', '0');
-          cardOcc.style.setProperty('--card-scale', '0');
-          cardOcc.style.setProperty('--card-opacity', '0');
-        }
+        // Activate bars inside graph
+        const bars = cardOcc.querySelectorAll('.graph-bar');
+        bars.forEach(bar => bar.classList.add('active'));
+      }
+    } else {
+      if (phoneOcc) {
+        phoneOcc.style.setProperty('--tilt-x', '0');
+        phoneOcc.style.setProperty('--tilt-z', '0');
+        phoneOcc.style.setProperty('--translate-y', '0');
+      }
+      if (cardOcc) {
+        cardOcc.style.setProperty('--card-z', '0');
+        cardOcc.style.setProperty('--card-scale', '0');
+        cardOcc.style.setProperty('--card-opacity', '0');
       }
     }
   }
@@ -93,32 +89,30 @@ window.addEventListener('scroll', () => {
       phoneCrew.style.setProperty('--screen-scroll-y', (progress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 65% to 100% - only on desktop)
-    if (!isMobile) {
-      if (progress >= 0.65) {
-        const stage = (progress - 0.65) / 0.35;
-        
-        if (phoneCrew) {
-          phoneCrew.style.setProperty('--tilt-x', (stage * 55).toString());
-          phoneCrew.style.setProperty('--tilt-z', (stage * 15).toString());
-          phoneCrew.style.setProperty('--translate-y', (stage * -15).toString());
-        }
-        if (cardBilling) {
-          cardBilling.style.setProperty('--card-z', (stage * 65).toString());
-          cardBilling.style.setProperty('--card-scale', stage.toString());
-          cardBilling.style.setProperty('--card-opacity', stage.toString());
-        }
-      } else {
-        if (phoneCrew) {
-          phoneCrew.style.setProperty('--tilt-x', '0');
-          phoneCrew.style.setProperty('--tilt-z', '0');
-          phoneCrew.style.setProperty('--translate-y', '0');
-        }
-        if (cardBilling) {
-          cardBilling.style.setProperty('--card-z', '0');
-          cardBilling.style.setProperty('--card-scale', '0');
-          cardBilling.style.setProperty('--card-opacity', '0');
-        }
+    // 3D Tilt Phone & Rise Card (occurs from 65% to 100%)
+    if (progress >= 0.65) {
+      const stage = (progress - 0.65) / 0.35;
+      
+      if (phoneCrew) {
+        phoneCrew.style.setProperty('--tilt-x', (stage * 55).toString());
+        phoneCrew.style.setProperty('--tilt-z', (stage * 15).toString());
+        phoneCrew.style.setProperty('--translate-y', (stage * -15).toString());
+      }
+      if (cardBilling) {
+        cardBilling.style.setProperty('--card-z', (stage * 65).toString());
+        cardBilling.style.setProperty('--card-scale', stage.toString());
+        cardBilling.style.setProperty('--card-opacity', stage.toString());
+      }
+    } else {
+      if (phoneCrew) {
+        phoneCrew.style.setProperty('--tilt-x', '0');
+        phoneCrew.style.setProperty('--tilt-z', '0');
+        phoneCrew.style.setProperty('--translate-y', '0');
+      }
+      if (cardBilling) {
+        cardBilling.style.setProperty('--card-z', '0');
+        cardBilling.style.setProperty('--card-scale', '0');
+        cardBilling.style.setProperty('--card-opacity', '0');
       }
     }
   }

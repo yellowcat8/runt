@@ -1524,47 +1524,70 @@ p {
     transform: none;
   }
   
-  /* Scroll Tracks on Mobile */
-  .scroll-track {
-    height: auto !important; /* Stack vertically instead of sticky scroll on mobile for better accessibility */
-  }
-  .sticky-wrapper {
-    position: relative !important;
-    height: auto !important;
-    padding: 3rem 0;
-  }
+  /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
   .scroll-grid {
-    grid-template-columns: 1fr !important;
-    gap: 3rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh;
+    padding: var(--header-height) 1.5rem 1rem 1.5rem !important;
+    gap: 1.5rem !important;
+    overflow: hidden;
   }
   .narrative-container {
-    gap: 2rem !important;
+    height: 90px;
+    position: relative !important;
+    width: 100%;
+    margin: 0 auto !important;
+    text-align: center;
+    gap: 0 !important;
     padding: 0 !important;
   }
   .narrative-cue {
+    position: absolute !important;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 15px) !important;
+    width: 100%;
+    max-width: 440px;
+    opacity: 0 !important;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .narrative-cue.active {
     opacity: 1 !important;
-    transform: none !important;
+    transform: translate(-50%, 0) !important;
+  }
+  .cue-desc {
+    font-size: 0.9rem !important;
+    margin: 0 auto;
+    line-height: 1.4 !important;
+  }
+  .cue-title {
+    font-size: 1.35rem !important;
+    margin-bottom: 0.15rem;
+  }
+  .phone-pin-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   .phone-mockup--scroll {
-    width: 220px;
-    height: 440px;
-    border-radius: 32px;
-    border-width: 6px;
-    transform: none !important;
+    width: 200px !important;
+    height: 400px !important;
+    border-radius: 30px !important;
+    border-width: 6px !important;
   }
   .phone-mockup--scroll .phone-screen,
   .phone-mockup--scroll .phone-map-bg {
-    border-radius: 26px;
+    border-radius: 24px !important;
   }
   .card-3d {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    opacity: 1 !important;
-    margin: 1.5rem auto 0 auto;
-    width: 100% !important;
-    max-width: 280px;
+    width: 210px !important;
+    padding: 1rem !important;
+    border-radius: 16px !important;
   }
   .features__grid {
     grid-template-columns: 1fr;
