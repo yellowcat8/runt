@@ -289,3 +289,21 @@ if (header) {
     }
   });
 }
+
+// 7. Force Autoplay Hero Video
+const forcePlayVideo = () => {
+  const video = document.querySelector('.hero__bg-video');
+  if (video) {
+    video.muted = true;
+    video.play().catch(error => {
+      console.warn("Video autoplay was prevented by browser. Wait for user interaction or interaction event.", error);
+    });
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', forcePlayVideo);
+} else {
+  forcePlayVideo();
+}
+
