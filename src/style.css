@@ -216,6 +216,13 @@ p {
   align-items: center;
   overflow: hidden;
   padding-bottom: 4rem;
+  width: 100%;
+}
+
+.hero .container {
+  width: 100%;
+  position: relative;
+  z-index: 3;
 }
 
 .hero__bg-video {
