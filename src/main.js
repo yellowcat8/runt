@@ -24,7 +24,19 @@ function getScrollProgress(element) {
 }
 
 // 2. Main Scroll Listeners
+let ticking = false;
+
 window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      handleScroll();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+function handleScroll() {
   // --- SECTION 1: COURSE OCCUPANCY ---
   const occTrack = document.getElementById('track-occupancy');
   if (occTrack) {
@@ -122,7 +134,7 @@ window.addEventListener('scroll', () => {
       }
     }
   }
-});
+}
 
 // Update Side Cues active state based on ranges
 function updateCues(prefix, progress) {

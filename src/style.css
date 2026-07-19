@@ -501,7 +501,7 @@ p {
   
   /* Tilt values computed dynamically by JS */
   transform: rotateX(calc(var(--tilt-x, 0) * 1deg)) rotateY(0deg) rotateZ(calc(var(--tilt-z, 0) * -1deg)) translateY(calc(var(--translate-y, 0) * 1px));
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .phone-screen {
@@ -775,7 +775,7 @@ p {
   /* Values set dynamically by JS based on scroll percentage */
   transform: translate3d(-50%, -50%, calc(var(--card-z, 0) * 1px)) scale(var(--card-scale, 0));
   opacity: var(--card-opacity, 0);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+  will-change: transform, opacity;
 }
 
 .card-3d__glow {
@@ -1769,6 +1769,6 @@ p {
   top: 0;
   left: 0;
   z-index: 1;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
   transform: translateY(calc(var(--screen-scroll-y, 0) * 1%));
 }
