@@ -46,37 +46,38 @@ function handleScroll() {
     const heroHint = document.getElementById('hero-scroll-hint');
     const heroOverlay = document.querySelector('.hero__video-overlay');
 
-    // Stage 1: progress <= 0.08 => Video only (Overlay 0.15, text hidden, preview hidden)
-    // Stage 2: 0.08 -> 0.42 => Text content fades in & slides up (Overlay -> 0.55)
-    // Stage 3: 0.42 -> 0.80 => Right mobile images fade in & slide up into place
+    // Stage 1: progress <= 0.08 => Pure Video only (Overlay 0.15, text hidden, preview hidden)
+    // Stage 2: 0.08 -> 0.38 => Text content fades in & slides up (Overlay -> 0.55)
+    // Stage 3: 0.38 -> 0.68 => Right mobile images fade in & slide up into place
+    // Stage 4: 0.68 -> 1.00 => HOLD ALL FULLY VISIBLE & STICKY PINNED BEFORE MOVING TO NEXT PAGE
 
     let textOpacity = 0;
     if (progress > 0.08) {
-      textOpacity = Math.min((progress - 0.08) / 0.32, 1);
+      textOpacity = Math.min((progress - 0.08) / 0.30, 1);
     }
 
     let previewOpacity = 0;
-    if (progress > 0.42) {
-      previewOpacity = Math.min((progress - 0.42) / 0.35, 1);
+    if (progress > 0.38) {
+      previewOpacity = Math.min((progress - 0.38) / 0.30, 1);
     }
 
     let hintOpacity = 0;
-    if (progress < 0.12) {
-      hintOpacity = Math.max(1 - (progress / 0.12), 0);
+    if (progress < 0.10) {
+      hintOpacity = Math.max(1 - (progress / 0.10), 0);
     }
 
     let overlayOpacity = 0.15 + (textOpacity * 0.45); // 0.15 bright video -> 0.60 readable text backdrop
 
     if (heroContent) {
       heroContent.style.opacity = textOpacity.toString();
-      heroContent.style.visibility = textOpacity > 0.05 ? 'visible' : 'hidden';
+      heroContent.style.visibility = textOpacity > 0.02 ? 'visible' : 'hidden';
       heroContent.style.pointerEvents = textOpacity > 0.5 ? 'auto' : 'none';
       heroContent.style.transform = `translateY(${(1 - textOpacity) * 40}px)`;
     }
 
     if (heroPreview) {
       heroPreview.style.opacity = previewOpacity.toString();
-      heroPreview.style.visibility = previewOpacity > 0.05 ? 'visible' : 'hidden';
+      heroPreview.style.visibility = previewOpacity > 0.02 ? 'visible' : 'hidden';
       heroPreview.style.pointerEvents = previewOpacity > 0.5 ? 'auto' : 'none';
       heroPreview.style.transform = `rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(${(1 - previewOpacity) * 50}px)`;
     }
@@ -104,15 +105,13 @@ function handleScroll() {
     
     if (phoneOcc) {
       // Parallax scroll effect for the app screenshot background
-      // Pans completely between 0.0 and 0.5 progress
-      const panProgress = Math.min(progress / 0.5, 1);
+      const panProgress = Math.min(progress / 0.45, 1);
       phoneOcc.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 50% to 75% progress)
-    if (progress >= 0.5) {
-      // Scale stage from 0 to 1 as progress goes from 0.5 to 0.75
-      const stage = Math.min((progress - 0.5) / 0.25, 1);
+    // 3D Tilt Phone & Rise Card (occurs from 45% to 70% progress, holds 70% to 100%)
+    if (progress >= 0.45) {
+      const stage = Math.min((progress - 0.45) / 0.25, 1);
       
       if (phoneOcc) {
         phoneOcc.style.setProperty('--tilt-x', (stage * 55).toString());
@@ -154,16 +153,13 @@ function handleScroll() {
     const cardBilling = document.getElementById('card-billing');
     
     if (phoneCrew) {
-      // Parallax scroll effect for the app screenshot background
-      // Pans completely between 0.0 and 0.5 progress
-      const panProgress = Math.min(progress / 0.5, 1);
+      const panProgress = Math.min(progress / 0.45, 1);
       phoneCrew.style.setProperty('--screen-scroll-y', (panProgress * -15).toString());
     }
     
-    // 3D Tilt Phone & Rise Card (occurs from 50% to 75% progress)
-    if (progress >= 0.5) {
-      // Scale stage from 0 to 1 as progress goes from 0.5 to 0.75
-      const stage = Math.min((progress - 0.5) / 0.25, 1);
+    // 3D Tilt Phone & Rise Card (occurs from 45% to 70% progress, holds 70% to 100%)
+    if (progress >= 0.45) {
+      const stage = Math.min((progress - 0.45) / 0.25, 1);
       
       if (phoneCrew) {
         phoneCrew.style.setProperty('--tilt-x', (stage * 55).toString());

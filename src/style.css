@@ -203,7 +203,7 @@ p {
 }
 
 .hero--scroll {
-  height: 250vh;
+  height: 350vh;
   padding: 0;
 }
 
@@ -434,7 +434,7 @@ p {
 /* Sticky Scroll Track & Grid */
 .scroll-track {
   position: relative;
-  height: 350vh; /* scroll distance */
+  height: 400vh; /* extended scroll distance to lock sticky position until completion */
 }
 
 .sticky-wrapper {
