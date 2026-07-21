@@ -73,6 +73,11 @@ p {
   font-size: 1.05rem;
 }
 
+.point-text {
+  color: var(--primary);
+  font-weight: 700;
+}
+
 /* Navigation Topbar */
 .header {
   position: fixed;
