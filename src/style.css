@@ -230,6 +230,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   z-index: 1;
   pointer-events: none;
 }
@@ -240,9 +241,10 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(6, 7, 10, 0.85);
+  background: rgba(6, 7, 10, var(--overlay-opacity, 0.15));
   z-index: 2;
   pointer-events: none;
+  transition: background 0.3s ease;
 }
 
 .hero__grid {
@@ -261,8 +263,10 @@ p {
   gap: 1.5rem;
   z-index: 10;
   opacity: var(--hero-text-opacity, 0);
-  transform: translateY(calc((1 - var(--hero-text-opacity, 0)) * 35px));
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(calc((1 - var(--hero-text-opacity, 0)) * 40px));
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   will-change: opacity, transform;
 }
 
@@ -361,8 +365,10 @@ p {
   perspective: 1500px;
   z-index: 5;
   opacity: var(--hero-preview-opacity, 0);
-  transform: rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(calc((1 - var(--hero-preview-opacity, 0)) * 50px));
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  visibility: hidden;
+  pointer-events: none;
+  transform: rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(calc((1 - var(--hero-preview-opacity, 0)) * 60px));
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   will-change: opacity, transform;
 }
 

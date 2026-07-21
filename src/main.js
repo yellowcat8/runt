@@ -44,27 +44,50 @@ function handleScroll() {
     const heroContent = document.getElementById('hero-content');
     const heroPreview = document.getElementById('hero-preview');
     const heroHint = document.getElementById('hero-scroll-hint');
+    const heroOverlay = document.querySelector('.hero__video-overlay');
+
+    // Stage 1: progress <= 0.08 => Video only (Overlay 0.15, text hidden, preview hidden)
+    // Stage 2: 0.08 -> 0.42 => Text content fades in & slides up (Overlay -> 0.55)
+    // Stage 3: 0.42 -> 0.80 => Right mobile images fade in & slide up into place
 
     let textOpacity = 0;
-    if (progress > 0.1) {
-      textOpacity = Math.min((progress - 0.1) / 0.35, 1);
+    if (progress > 0.08) {
+      textOpacity = Math.min((progress - 0.08) / 0.32, 1);
     }
 
     let previewOpacity = 0;
-    if (progress > 0.45) {
-      previewOpacity = Math.min((progress - 0.45) / 0.35, 1);
+    if (progress > 0.42) {
+      previewOpacity = Math.min((progress - 0.42) / 0.35, 1);
     }
 
-    let hintOpacity = Math.max(1 - (progress / 0.15), 0);
+    let hintOpacity = 0;
+    if (progress < 0.12) {
+      hintOpacity = Math.max(1 - (progress / 0.12), 0);
+    }
+
+    let overlayOpacity = 0.15 + (textOpacity * 0.45); // 0.15 bright video -> 0.60 readable text backdrop
 
     if (heroContent) {
-      heroContent.style.setProperty('--hero-text-opacity', textOpacity.toString());
+      heroContent.style.opacity = textOpacity.toString();
+      heroContent.style.visibility = textOpacity > 0.05 ? 'visible' : 'hidden';
+      heroContent.style.pointerEvents = textOpacity > 0.5 ? 'auto' : 'none';
+      heroContent.style.transform = `translateY(${(1 - textOpacity) * 40}px)`;
     }
+
     if (heroPreview) {
-      heroPreview.style.setProperty('--hero-preview-opacity', previewOpacity.toString());
+      heroPreview.style.opacity = previewOpacity.toString();
+      heroPreview.style.visibility = previewOpacity > 0.05 ? 'visible' : 'hidden';
+      heroPreview.style.pointerEvents = previewOpacity > 0.5 ? 'auto' : 'none';
+      heroPreview.style.transform = `rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(${(1 - previewOpacity) * 50}px)`;
     }
+
     if (heroHint) {
-      heroHint.style.setProperty('--hero-hint-opacity', hintOpacity.toString());
+      heroHint.style.opacity = hintOpacity.toString();
+      heroHint.style.visibility = hintOpacity > 0.05 ? 'visible' : 'hidden';
+    }
+
+    if (heroOverlay) {
+      heroOverlay.style.background = `rgba(6, 7, 10, ${overlayOpacity})`;
     }
   }
 
