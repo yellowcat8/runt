@@ -66,7 +66,7 @@ function handleScroll() {
       hintOpacity = Math.max(1 - (progress / 0.10), 0);
     }
 
-    let overlayOpacity = 0.15 + (textOpacity * 0.45); // 0.15 bright video -> 0.60 readable text backdrop
+    let overlayOpacity = textOpacity * 0.55; // 0.00 transparent initial image -> 0.55 readable text backdrop
 
     if (heroContent) {
       heroContent.style.opacity = textOpacity.toString();
@@ -347,25 +347,52 @@ if (header) {
   });
 }
 
-// 7. Force Autoplay Hero Video
-const forcePlayVideo = () => {
+// 7. Hero Video Initialization
+const setupHeroVideo = () => {
   const video = document.querySelector('.hero__bg-video');
-  if (video) {
-    video.muted = true;
-    video.play().catch(error => {
-      console.warn("Video autoplay was prevented by browser. Wait for user interaction or interaction event.", error);
-    });
-  }
+  if (!video) return;
+
+  video.muted = true;
+  video.playsInline = true;
+
+  const tryPlay = () => {
+    video.play().catch(() => {});
+  };
+
+  tryPlay();
+
+  window.addEventListener('scroll', tryPlay, { passive: true, once: true });
+  window.addEventListener('touchstart', tryPlay, { passive: true, once: true });
+  window.addEventListener('click', tryPlay, { passive: true, once: true });
 };
 
-// Initial scroll calculation
+// Initial scroll & video calculation
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    forcePlayVideo();
+    setupHeroVideo();
     handleScroll();
   });
 } else {
-  forcePlayVideo();
+  setupHeroVideo();
   handleScroll();
 }
+
+window.addEventListener('load', () => {
+  setupHeroVideo();
+  handleScroll();
+  const img = document.querySelector('.hero__bg-img');
+  const vid = document.querySelector('.hero__bg-video');
+  console.log('HERO_STATS:', {
+    img_display: window.getComputedStyle(img).display,
+    img_opacity: window.getComputedStyle(img).opacity,
+    img_naturalWidth: img ? img.naturalWidth : 0,
+    img_naturalHeight: img ? img.naturalHeight : 0,
+    vid_display: window.getComputedStyle(vid).display,
+    vid_opacity: window.getComputedStyle(vid).opacity,
+    vid_readyState: vid ? vid.readyState : 0,
+    vid_paused: vid ? vid.paused : true,
+    vid_currentTime: vid ? vid.currentTime : 0,
+    vid_videoWidth: vid ? vid.videoWidth : 0
+  });
+});
 
