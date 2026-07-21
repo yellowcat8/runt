@@ -37,6 +37,37 @@ window.addEventListener('scroll', () => {
 });
 
 function handleScroll() {
+  // --- SECTION 0: HERO STEPPED SCROLL REVEAL ---
+  const heroTrack = document.getElementById('hero-track');
+  if (heroTrack) {
+    const progress = getScrollProgress(heroTrack);
+    const heroContent = document.getElementById('hero-content');
+    const heroPreview = document.getElementById('hero-preview');
+    const heroHint = document.getElementById('hero-scroll-hint');
+
+    let textOpacity = 0;
+    if (progress > 0.1) {
+      textOpacity = Math.min((progress - 0.1) / 0.35, 1);
+    }
+
+    let previewOpacity = 0;
+    if (progress > 0.45) {
+      previewOpacity = Math.min((progress - 0.45) / 0.35, 1);
+    }
+
+    let hintOpacity = Math.max(1 - (progress / 0.15), 0);
+
+    if (heroContent) {
+      heroContent.style.setProperty('--hero-text-opacity', textOpacity.toString());
+    }
+    if (heroPreview) {
+      heroPreview.style.setProperty('--hero-preview-opacity', previewOpacity.toString());
+    }
+    if (heroHint) {
+      heroHint.style.setProperty('--hero-hint-opacity', hintOpacity.toString());
+    }
+  }
+
   // --- SECTION 1: COURSE OCCUPANCY ---
   const occTrack = document.getElementById('track-occupancy');
   if (occTrack) {
@@ -308,9 +339,14 @@ const forcePlayVideo = () => {
   }
 };
 
+// Initial scroll calculation
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', forcePlayVideo);
+  document.addEventListener('DOMContentLoaded', () => {
+    forcePlayVideo();
+    handleScroll();
+  });
 } else {
   forcePlayVideo();
+  handleScroll();
 }
 

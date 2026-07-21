@@ -197,14 +197,27 @@ p {
 .hero {
   position: relative;
   display: flex;
-  min-height: calc(100vh - var(--header-height));
   align-items: center;
   overflow: hidden;
-  padding-bottom: 4rem;
   width: 100%;
 }
 
-.hero .container {
+.hero--scroll {
+  height: 250vh;
+  padding: 0;
+}
+
+.hero__sticky {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.hero__sticky .container {
   width: 100%;
   position: relative;
   z-index: 3;
@@ -247,6 +260,10 @@ p {
   flex-direction: column;
   gap: 1.5rem;
   z-index: 10;
+  opacity: var(--hero-text-opacity, 0);
+  transform: translateY(calc((1 - var(--hero-text-opacity, 0)) * 35px));
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
 }
 
 .tagline {
@@ -343,8 +360,33 @@ p {
   align-items: center;
   perspective: 1500px;
   z-index: 5;
-  transform: rotateX(10deg) rotateY(-22deg) rotateZ(6deg);
-  transition: var(--transition-smooth);
+  opacity: var(--hero-preview-opacity, 0);
+  transform: rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(calc((1 - var(--hero-preview-opacity, 0)) * 50px));
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
+}
+
+.hero__preview-container:hover {
+  transform: rotateX(6deg) rotateY(-12deg) rotateZ(3deg);
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: var(--hero-hint-opacity, 1);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  animation: chevron-pulse 2s infinite;
 }
 
 .hero__preview-container:hover {
