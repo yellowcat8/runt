@@ -209,9 +209,9 @@ function startLiveIncrements() {
 
 // 4. Live Activity Feed simulation
 const mockActivities = [
-  { type: 'book', name: '크루 [러너스하이]', text: '가 반포한강공원 B코스 저녁 8시 예약을 <strong>선점</strong>했습니다. 📅' },
-  { type: 'check', name: '김민지', text: '님이 여의도 정기런 모임 <strong>출석체크</strong>를 완료했습니다 (참석확정 ✋).' },
-  { type: 'bill', name: '크루 [PaceMakers]', text: '의 뒷풀이 정산이 완료되었습니다 (1인당 <strong>₩6,500 자동정산</strong> 💳).' },
+  { type: 'book', name: '크루 [러너스하이]', text: '가 반포한강공원 B코스 저녁 8시 예약을 <strong>선점</strong>했습니다.' },
+  { type: 'check', name: '김민지', text: '님이 여의도 정기런 모임 <strong>출석체크</strong>를 완료했습니다 (참석확정).' },
+  { type: 'bill', name: '크루 [PaceMakers]', text: '의 뒷풀이 정산이 완료되었습니다 (1인당 <strong>₩6,500 자동정산</strong>).' },
   { type: 'check', name: '박선우', text: '님이 잠실 트랙 번개런에 도착하여 <strong>원터치 출석</strong>을 완료했습니다.' },
   { type: 'book', name: '크루 [남산러너스]', text: '가 남산 둘레길 코스 일요일 오전 예약을 <strong>등록</strong>했습니다.' },
   { type: 'bill', name: '크루 [RunClub]', text: '의 이번 달 회비 <strong>자동정산 분할청구</strong>가 발송되었습니다.' },
@@ -221,25 +221,20 @@ const mockActivities = [
 const feedContainer = document.getElementById('feed-container');
 let activityIndex = 0;
 
+const svgIcons = {
+  book: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+  check: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>`,
+  bill: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>`
+};
+
 function createFeedItem(act) {
   const item = document.createElement('div');
   item.className = 'feed-item';
   
-  let icon = '🏃';
-  let iconClass = '';
-  if (act.type === 'book') {
-    icon = '📅';
-    iconClass = 'feed-icon--book';
-  } else if (act.type === 'check') {
-    icon = '✋';
-    iconClass = 'feed-icon--check';
-  } else if (act.type === 'bill') {
-    icon = '💳';
-    iconClass = 'feed-icon--bill';
-  }
+  const iconSvg = svgIcons[act.type] || svgIcons.book;
   
   item.innerHTML = `
-    <div class="feed-icon ${iconClass}">${icon}</div>
+    <div class="feed-icon feed-icon--${act.type}">${iconSvg}</div>
     <div class="feed-content">
       <p class="feed-text"><strong>${act.name}</strong>${act.text}</p>
     </div>
