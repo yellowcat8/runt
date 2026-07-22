@@ -1,5 +1,4 @@
 import './style.css'
-import heroBgUrl from './assets/hero_runner_bg.png'
 import heroVideoUrl from './assets/hero_video.mp4'
 
 // 1. Scroll Progress Helper
@@ -298,16 +297,10 @@ if (header) {
 
 // 7. Hero Video Initialization & Smooth Playback
 const setupHeroVideo = () => {
-  const bgImg = document.querySelector('.hero__bg-img');
-  if (bgImg) {
-    bgImg.src = heroBgUrl;
-  }
-
   const video = document.querySelector('.hero__bg-video');
   if (!video) return;
 
   video.src = heroVideoUrl;
-  video.poster = heroBgUrl;
   video.muted = true;
   video.playsInline = true;
 
@@ -353,15 +346,10 @@ if (document.readyState === 'loading') {
 window.addEventListener('load', () => {
   setupHeroVideo();
   handleScroll();
-  const img = document.querySelector('.hero__bg-img');
   const vid = document.querySelector('.hero__bg-video');
   console.log('HERO_STATS:', {
-    img_display: window.getComputedStyle(img).display,
-    img_opacity: window.getComputedStyle(img).opacity,
-    img_naturalWidth: img ? img.naturalWidth : 0,
-    img_naturalHeight: img ? img.naturalHeight : 0,
-    vid_display: window.getComputedStyle(vid).display,
-    vid_opacity: window.getComputedStyle(vid).opacity,
+    vid_display: vid ? window.getComputedStyle(vid).display : 'none',
+    vid_opacity: vid ? window.getComputedStyle(vid).opacity : '0',
     vid_readyState: vid ? vid.readyState : 0,
     vid_paused: vid ? vid.paused : true,
     vid_currentTime: vid ? vid.currentTime : 0,
