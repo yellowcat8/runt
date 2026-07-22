@@ -230,39 +230,25 @@ function updateCues(prefix, progress) {
   
   if (!cue1 || !cue2 || !cue3) return;
   
-  let op1 = 0, op2 = 0, op3 = 0;
-  
-  // Cue 1 (0.15 -> 0.45, peak at 0.30)
-  if (progress >= 0.15 && progress <= 0.45) {
-    if (progress < 0.30) {
-      op1 = (progress - 0.15) / 0.15;
-    } else {
-      op1 = (0.45 - progress) / 0.15;
-    }
-  }
-  
-  // Cue 2 (0.45 -> 0.70, peak at 0.575)
-  if (progress >= 0.45 && progress <= 0.70) {
-    if (progress < 0.575) {
-      op2 = (progress - 0.45) / 0.125;
-    } else {
-      op2 = (0.70 - progress) / 0.125;
-    }
-  }
-  
-  // Cue 3 (0.70 -> 0.95, peak at 0.825)
-  if (progress >= 0.70 && progress <= 0.95) {
-    if (progress < 0.825) {
-      op3 = (progress - 0.70) / 0.125;
-    } else {
-      op3 = (0.95 - progress) / 0.125;
-    }
-  }
+  // Calculate opacities using a trapezoidal shape to keep cues fully visible (opacity 1.0) longer
+  const op1 = getTrapezoidOpacity(progress, 0.15, 0.22, 0.38, 0.45);
+  const op2 = getTrapezoidOpacity(progress, 0.45, 0.50, 0.65, 0.70);
+  const op3 = getTrapezoidOpacity(progress, 0.70, 0.75, 0.90, 0.95);
   
   // Apply opacities, visibility, and translateY offset
   setCueStyle(cue1, op1);
   setCueStyle(cue2, op2);
   setCueStyle(cue3, op3);
+}
+
+function getTrapezoidOpacity(progress, start, fadeInEnd, fadeOutStart, end) {
+  if (progress < start || progress > end) return 0;
+  if (progress >= fadeInEnd && progress <= fadeOutStart) return 1;
+  if (progress < fadeInEnd) {
+    return (progress - start) / (fadeInEnd - start);
+  } else {
+    return (end - progress) / (end - fadeOutStart);
+  }
 }
 
 function setCueStyle(cue, opacity) {
