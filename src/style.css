@@ -204,6 +204,7 @@ p {
 .hero--scroll {
   height: 300vh;
   padding: 0;
+  margin-bottom: 100vh; /* separate hero and section 1 to prevent overlapping */
 }
 
 .hero__sticky {
