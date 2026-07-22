@@ -48,18 +48,18 @@ function handleScroll() {
     const heroOverlay = document.querySelector('.hero__video-overlay');
 
     // Stage 1: progress < 0.10 => Only video (bright overlay, text hidden, preview hidden)
-    // Stage 2: 0.10 -> 0.45 => Text fades in (overlay dims for readability)
-    // Stage 3: 0.45 -> 0.80 => Previews fade & slide in
-    // Stage 4: 0.80 -> 1.00 => Pinned hold
+    // Stage 2: 0.10 -> 0.40 => Text fades in (overlay dims for readability)
+    // Stage 3: 0.55 -> 0.85 => Previews fade & slide in (clear gap after text)
+    // Stage 4: 0.85 -> 1.00 => Pinned hold
 
     let textOpacity = 0;
     if (progress > 0.10) {
-      textOpacity = Math.min((progress - 0.10) / 0.35, 1);
+      textOpacity = Math.min((progress - 0.10) / 0.30, 1);
     }
 
     let previewOpacity = 0;
-    if (progress > 0.45) {
-      previewOpacity = Math.min((progress - 0.45) / 0.35, 1);
+    if (progress > 0.55) {
+      previewOpacity = Math.min((progress - 0.55) / 0.30, 1);
     }
 
     let overlayOpacity = 0.15 + (textOpacity * 0.40); // 0.15 bright video -> 0.55 readable backdrop

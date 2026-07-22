@@ -279,7 +279,7 @@ p {
   visibility: hidden;
   pointer-events: none;
   transform: translateY(40px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   will-change: opacity, transform;
 }
 
@@ -381,7 +381,7 @@ p {
   visibility: hidden;
   pointer-events: none;
   transform: rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(50px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
   will-change: opacity, transform;
 }
 
