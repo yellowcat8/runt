@@ -1777,6 +1777,14 @@ p {
   .cta__title {
     font-size: 2.2rem;
   }
+  .cta__card {
+    padding: 3.5rem 1.25rem !important;
+  }
+  .cta__desc {
+    font-size: 0.95rem !important; /* Slightly smaller for mobile screen viewports */
+    line-height: 1.5 !important;
+    margin-bottom: 2rem !important;
+  }
   
   /* Footer Mobile Layout (Kyro style horizontal inline lists) */
   .footer__grid {
