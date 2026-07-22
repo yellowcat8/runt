@@ -347,7 +347,7 @@ if (header) {
   });
 }
 
-// 7. Hero Video Initialization
+// 7. Hero Video Initialization & Smooth Fade-In
 const setupHeroVideo = () => {
   const video = document.querySelector('.hero__bg-video');
   if (!video) return;
@@ -355,15 +355,33 @@ const setupHeroVideo = () => {
   video.muted = true;
   video.playsInline = true;
 
+  const markPlaying = () => {
+    if (!video.paused && video.currentTime > 0.05) {
+      video.classList.add('is-playing');
+    }
+  };
+
+  video.addEventListener('playing', markPlaying);
+  video.addEventListener('timeupdate', markPlaying);
+
   const tryPlay = () => {
-    video.play().catch(() => {});
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        markPlaying();
+      }).catch(() => {
+        // Fallback: If autoplay is restricted by browser policy, play on first user interaction
+        const playOnGesture = () => {
+          video.play().then(() => markPlaying()).catch(() => {});
+        };
+        window.addEventListener('scroll', playOnGesture, { passive: true, once: true });
+        window.addEventListener('touchstart', playOnGesture, { passive: true, once: true });
+        window.addEventListener('click', playOnGesture, { passive: true, once: true });
+      });
+    }
   };
 
   tryPlay();
-
-  window.addEventListener('scroll', tryPlay, { passive: true, once: true });
-  window.addEventListener('touchstart', tryPlay, { passive: true, once: true });
-  window.addEventListener('click', tryPlay, { passive: true, once: true });
 };
 
 // Initial scroll & video calculation
