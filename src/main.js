@@ -46,33 +46,24 @@ function handleScroll() {
     const heroHint = document.getElementById('hero-scroll-hint');
     const heroOverlay = document.querySelector('.hero__video-overlay');
 
-    // Stage 1: progress <= 0.08 => Pure Video only (Overlay 0.15, text hidden, preview hidden)
-    // Stage 2: 0.08 -> 0.38 => Text content fades in & slides up (Overlay -> 0.55)
-    // Stage 3: 0.38 -> 0.68 => Right mobile images fade in & slide up into place
-    // Stage 4: 0.68 -> 1.00 => HOLD ALL FULLY VISIBLE & STICKY PINNED BEFORE MOVING TO NEXT PAGE
+    // Stage 1: progress <= 0.40 => Hero text visible immediately over running video
+    // Stage 2: 0.40 -> 0.70 => Right mobile phone images slide in
+    // Stage 3: 0.70 -> 1.00 => Sticky pinned before scrolling down to next section
 
-    let textOpacity = 0;
-    if (progress > 0.08) {
-      textOpacity = Math.min((progress - 0.08) / 0.30, 1);
-    }
+    let textOpacity = 1;
 
     let previewOpacity = 0;
-    if (progress > 0.38) {
-      previewOpacity = Math.min((progress - 0.38) / 0.30, 1);
+    if (progress > 0.35) {
+      previewOpacity = Math.min((progress - 0.35) / 0.35, 1);
     }
 
-    let hintOpacity = 0;
-    if (progress < 0.10) {
-      hintOpacity = Math.max(1 - (progress / 0.10), 0);
-    }
-
-    let overlayOpacity = textOpacity * 0.55; // 0.00 transparent initial image -> 0.55 readable text backdrop
+    let overlayOpacity = 0.35;
 
     if (heroContent) {
       heroContent.style.opacity = textOpacity.toString();
-      heroContent.style.visibility = textOpacity > 0.02 ? 'visible' : 'hidden';
-      heroContent.style.pointerEvents = textOpacity > 0.5 ? 'auto' : 'none';
-      heroContent.style.transform = `translateY(${(1 - textOpacity) * 40}px)`;
+      heroContent.style.visibility = 'visible';
+      heroContent.style.pointerEvents = 'auto';
+      heroContent.style.transform = `translateY(0px)`;
     }
 
     if (heroPreview) {
@@ -347,7 +338,7 @@ if (header) {
   });
 }
 
-// 7. Hero Video Initialization & Smooth Fade-In
+// 7. Hero Video Initialization & Smooth Playback
 const setupHeroVideo = () => {
   const video = document.querySelector('.hero__bg-video');
   if (!video) return;
@@ -355,24 +346,23 @@ const setupHeroVideo = () => {
   video.muted = true;
   video.playsInline = true;
 
-  const markPlaying = () => {
-    if (!video.paused && video.currentTime > 0.05) {
-      video.classList.add('is-playing');
+  const seekToRunningContent = () => {
+    if (video.currentTime < 0.5) {
+      video.currentTime = 0.8;
     }
   };
 
-  video.addEventListener('playing', markPlaying);
-  video.addEventListener('timeupdate', markPlaying);
+  video.addEventListener('loadedmetadata', seekToRunningContent);
+  video.addEventListener('loadeddata', seekToRunningContent);
 
   const tryPlay = () => {
+    seekToRunningContent();
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.then(() => {
-        markPlaying();
-      }).catch(() => {
-        // Fallback: If autoplay is restricted by browser policy, play on first user interaction
+      playPromise.catch(() => {
         const playOnGesture = () => {
-          video.play().then(() => markPlaying()).catch(() => {});
+          seekToRunningContent();
+          video.play().catch(() => {});
         };
         window.addEventListener('scroll', playOnGesture, { passive: true, once: true });
         window.addEventListener('touchstart', playOnGesture, { passive: true, once: true });
