@@ -292,19 +292,15 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--primary);
-  background: rgba(0, 79, 255, 0.08);
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
   width: fit-content;
-  border: 1px solid var(--border-neon-lime);
+  border: none;
 }
 
 .tagline__dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  animation: pulse-glow 1.5s infinite;
+  display: none;
 }
 
 .hero__title {
@@ -447,7 +443,7 @@ p {
 /* Sticky Scroll Track & Grid */
 .scroll-track {
   position: relative;
-  height: 400vh; /* extended scroll distance to lock sticky position until completion */
+  height: 560vh; /* 0.8x of 700vh (balanced scroll distance and text display time) */
   margin-bottom: 140vh; /* page gap to prevent overlapping mockups */
 }
 
@@ -1551,35 +1547,41 @@ p {
 @media (max-width: 1024px) {
   .hero__grid {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 1.25rem;
     text-align: center;
-    padding-top: 2rem;
+    padding-top: 1rem;
+    height: 100%;
+    align-content: center;
+    justify-items: center;
   }
   .hero__content {
     align-items: center;
+    gap: 0.85rem;
   }
   .hero__desc {
     margin: 0 auto;
+    max-width: 480px;
   }
   .hero__title {
-    font-size: 3.2rem;
+    font-size: 2.6rem;
   }
   .hero__preview-container {
     transform: none !important;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    gap: 1rem;
   }
   .hero__preview-container:hover {
     transform: none !important;
   }
   .preview-phone {
-    width: 160px;
-    height: 330px;
+    width: 140px;
+    height: 280px;
   }
   .preview-phone--left {
-    transform: none;
+    transform: translateY(-0.5rem);
   }
   .preview-phone--right {
-    transform: none;
+    transform: translateY(0.5rem);
   }
   
   /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
@@ -1653,6 +1655,10 @@ p {
 @media (max-width: 768px) {
   .header {
     padding: 0 1rem;
+    height: 60px;
+  }
+  .main {
+    margin-top: 60px;
   }
   .nav-links {
     display: none;
@@ -1661,52 +1667,69 @@ p {
     font-size: 1.3rem;
   }
   .header-cta {
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.9rem;
     font-size: 0.8rem;
   }
   .pc-only {
     display: none;
   }
+  .hero__sticky {
+    top: 60px;
+    height: calc(100dvh - 60px);
+    padding-bottom: 0.5rem;
+  }
+  .hero__grid {
+    gap: 0.75rem;
+    padding-top: 0;
+  }
   .hero__title {
-    font-size: 2.0rem;
+    font-size: 1.85rem;
     word-break: keep-all;
-    line-height: 1.3;
+    line-height: 1.25;
   }
   .hero__desc {
-    font-size: 1.0rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
     padding: 0 0.5rem;
+    max-width: 360px;
   }
   .hero__buttons {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     width: 100%;
     max-width: 320px;
-    margin: 1.5rem auto 0 auto;
-    gap: 0.75rem;
+    margin: 0.4rem auto 0 auto;
+    gap: 0.5rem;
   }
   .hero__buttons .btn {
-    width: 100%;
+    width: auto;
+    flex: 1;
     justify-content: center;
-    padding: 0.85rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
   }
   .hero__preview-container {
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
   .preview-phone {
-    width: 130px;
-    height: 270px;
-    border-width: 4px;
-    border-radius: 20px;
+    width: 110px;
+    height: 220px;
+    border-width: 3px;
+    border-radius: 18px;
   }
   .preview-phone--left {
-    transform: translateY(-0.75rem);
+    transform: translateY(-0.25rem);
   }
   .preview-phone--right {
-    transform: translateY(0.75rem);
+    transform: translateY(0.25rem);
+  }
+  .hero__scroll-hint {
+    bottom: 0.5rem;
+    font-size: 0.75rem;
   }
   .section {
-    padding: 4rem 0;
+    padding: 3.5rem 0;
   }
   .footer__grid {
     grid-template-columns: 1fr;
@@ -1718,19 +1741,36 @@ p {
 }
 
 @media (max-width: 480px) {
+  .hero__grid {
+    gap: 0.5rem;
+  }
   .hero__title {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
   .hero__desc {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
   .hero__buttons {
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
+    gap: 0.4rem;
+  }
+  .hero__buttons .btn {
+    padding: 0.55rem 0.65rem;
+    font-size: 0.8rem;
   }
   .preview-phone {
-    width: 115px;
-    height: 240px;
+    width: 98px;
+    height: 195px;
+    border-width: 3px;
+    border-radius: 16px;
+  }
+  .preview-phone--left {
+    transform: none;
+  }
+  .preview-phone--right {
+    transform: none;
   }
 }
 

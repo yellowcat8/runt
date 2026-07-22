@@ -231,9 +231,9 @@ function updateCues(prefix, progress) {
   if (!cue1 || !cue2 || !cue3) return;
   
   // Calculate opacities using a trapezoidal shape to keep cues fully visible (opacity 1.0) longer
-  const op1 = getTrapezoidOpacity(progress, 0.15, 0.22, 0.38, 0.45);
-  const op2 = getTrapezoidOpacity(progress, 0.45, 0.50, 0.65, 0.70);
-  const op3 = getTrapezoidOpacity(progress, 0.70, 0.75, 0.90, 0.95);
+  const op1 = getTrapezoidOpacity(progress, 0.08, 0.16, 0.38, 0.44);
+  const op2 = getTrapezoidOpacity(progress, 0.44, 0.50, 0.68, 0.74);
+  const op3 = getTrapezoidOpacity(progress, 0.74, 0.80, 0.94, 0.99);
   
   // Apply opacities, visibility, and translateY offset
   setCueStyle(cue1, op1);
