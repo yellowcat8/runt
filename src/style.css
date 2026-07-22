@@ -965,6 +965,7 @@ p {
   border-top: 1px solid var(--border-glass);
   border-bottom: 1px solid var(--border-glass);
   position: relative;
+  margin-bottom: 8rem; /* prevent overlap with features section tagline */
 }
 
 .stats__grid {
