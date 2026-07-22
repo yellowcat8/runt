@@ -250,7 +250,7 @@ p {
   z-index: 2;
   pointer-events: none;
   opacity: 1;
-  background: url('/hero_runner_bg.png') center center / cover no-repeat;
+  background: url('./assets/hero_runner_bg.png') center center / cover no-repeat;
 }
 
 .hero__bg-video.is-playing {
