@@ -215,7 +215,7 @@ p {
   align-items: center;
   overflow: hidden;
   width: 100%;
-  background: #090b10 url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
+  background: #090b10 url('/runt/hero_runner_bg.png') center center / cover no-repeat;
 }
 
 .hero__sticky .container {
