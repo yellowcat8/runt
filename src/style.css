@@ -447,7 +447,7 @@ p {
 .scroll-track {
   position: relative;
   height: 400vh; /* extended scroll distance to lock sticky position until completion */
-  margin-bottom: 180vh; /* page gap to prevent overlapping mockups */
+  margin-bottom: 140vh; /* page gap to prevent overlapping mockups */
 }
 
 .sticky-wrapper {
