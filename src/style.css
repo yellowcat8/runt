@@ -19,7 +19,7 @@
   --text-dim: #64748b;       /* Slate 500 */
   
   /* Fonts */
-  --font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   
   /* Layout */
   --max-width: 1200px;
