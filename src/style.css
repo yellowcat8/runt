@@ -1186,9 +1186,19 @@ p {
   background: transparent;
 }
 
+.faq {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25vh;
+  padding: 6rem 0;
+}
+
 .faq__container {
   max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .faq__header {
@@ -1261,8 +1271,13 @@ p {
 
 /* CTA Section */
 .cta {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: 4rem 0 8rem 0;
 }
 
 .cta__card {
@@ -1728,12 +1743,14 @@ p {
     bottom: 0.5rem;
     font-size: 0.75rem;
   }
-  .section {
-    padding: 3.5rem 0;
+  .faq {
+    min-height: 80dvh;
+    margin-bottom: 15vh;
+    padding: 3rem 0;
   }
-  .footer__grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .cta {
+    min-height: 70dvh;
+    padding: 3rem 0 5rem 0;
   }
   .cta__title {
     font-size: 2.2rem;
