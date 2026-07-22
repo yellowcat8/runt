@@ -1615,7 +1615,7 @@ p {
   
   /* Scroll Tracks on Mobile (Keep sticky scroll, same as PC) */
   .scroll-track {
-    height: 450vh !important;
+    height: 380vh !important;
   }
   .sticky-wrapper {
     top: var(--header-height) !important;
@@ -1630,10 +1630,16 @@ p {
     padding: 0 1.25rem !important;
     overflow: hidden;
     position: relative !important;
+    gap: 1.5rem !important; /* Add tight gap instead of large margins */
+  }
+
+  .narrative-container {
+    height: 160px !important; /* Reduced height to pull the phone image up */
+    margin-bottom: 0 !important;
   }
 
   .phone-pin-area {
-    height: 100% !important;
+    height: auto !important; /* Make it auto instead of 100% to avoid stretching empty space */
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
