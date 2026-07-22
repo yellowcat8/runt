@@ -443,8 +443,8 @@ p {
 /* Sticky Scroll Track & Grid */
 .scroll-track {
   position: relative;
-  height: 560vh; /* 0.8x of 700vh (balanced scroll distance and text display time) */
-  margin-bottom: 140vh; /* page gap to prevent overlapping mockups */
+  height: 380vh; /* Reduced height for snappier scroll transitions */
+  margin-bottom: 80vh; /* Adjusted gap to keep spacing clean */
 }
 
 .sticky-wrapper {
