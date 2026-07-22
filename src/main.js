@@ -283,8 +283,8 @@ if (statsSection) {
         const crewsEl = document.getElementById('stat-crews');
         const cheersEl = document.getElementById('stat-cheers');
 
-        if (crewsEl) animateValue(crewsEl, 0, 1482, 1800, v => v.toLocaleString());
-        if (cheersEl) animateValue(cheersEl, 0, 12895, 1500, v => v.toLocaleString());
+        if (crewsEl) animateValue(crewsEl, 0, 1482, 1800, v => v.toString());
+        if (cheersEl) animateValue(cheersEl, 0, 12895, 1500, v => v.toString());
         
         setTimeout(startLiveIncrements, 2000);
       }
@@ -298,10 +298,10 @@ function startLiveIncrements() {
   setInterval(() => {
     const el = document.getElementById('stat-cheers');
     if (!el) return;
-    let currentVal = parseInt(el.textContent.replace(/,/g, ''));
+    let currentVal = parseInt(el.textContent);
     if (isNaN(currentVal)) return;
     currentVal += 1;
-    el.textContent = currentVal.toLocaleString();
+    el.textContent = currentVal.toString();
   }, 4000);
 }
 
