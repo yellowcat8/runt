@@ -1225,8 +1225,9 @@ p {
 
 .faq-item {
   width: 100%;
+  box-sizing: border-box;
   background: var(--bg-card);
-  border: 1px solid var(--border-glass);
+  border: 1px solid rgba(0, 79, 255, 0.3);
   border-radius: 16px;
   overflow: hidden;
   transition: var(--transition-smooth);
