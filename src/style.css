@@ -245,12 +245,12 @@ p {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  object-position: center center;
-  transform: translate(-50%, -50%) scale(1.6);
+  object-position: center bottom;
+  transform: translate(-50%, -40%) scale(2.8);
   z-index: 2;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .hero__bg-video.is-playing {
