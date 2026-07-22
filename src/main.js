@@ -38,7 +38,57 @@ window.addEventListener('scroll', () => {
 });
 
 function handleScroll() {
+  // --- SECTION 0: HERO STEPPED SCROLL REVEAL ---
+  const heroTrack = document.getElementById('hero-track');
+  if (heroTrack) {
+    const progress = getScrollProgress(heroTrack);
+    const heroContent = document.getElementById('hero-content');
+    const heroPreview = document.getElementById('hero-preview');
+    const heroHint = document.getElementById('hero-scroll-hint');
+    const heroOverlay = document.querySelector('.hero__video-overlay');
 
+    // Stage 1: progress < 0.10 => Only video (bright overlay, text hidden, preview hidden)
+    // Stage 2: 0.10 -> 0.45 => Text fades in (overlay dims for readability)
+    // Stage 3: 0.45 -> 0.80 => Previews fade & slide in
+    // Stage 4: 0.80 -> 1.00 => Pinned hold
+
+    let textOpacity = 0;
+    if (progress > 0.10) {
+      textOpacity = Math.min((progress - 0.10) / 0.35, 1);
+    }
+
+    let previewOpacity = 0;
+    if (progress > 0.45) {
+      previewOpacity = Math.min((progress - 0.45) / 0.35, 1);
+    }
+
+    let overlayOpacity = 0.15 + (textOpacity * 0.40); // 0.15 bright video -> 0.55 readable backdrop
+
+    if (heroContent) {
+      heroContent.style.opacity = textOpacity.toString();
+      heroContent.style.visibility = textOpacity > 0.02 ? 'visible' : 'hidden';
+      heroContent.style.pointerEvents = textOpacity > 0.5 ? 'auto' : 'none';
+      heroContent.style.transform = `translateY(${(1 - textOpacity) * 40}px)`;
+    }
+
+    if (heroPreview) {
+      heroPreview.style.opacity = previewOpacity.toString();
+      heroPreview.style.visibility = previewOpacity > 0.02 ? 'visible' : 'hidden';
+      heroPreview.style.pointerEvents = previewOpacity > 0.5 ? 'auto' : 'none';
+      heroPreview.style.transform = `rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(${(1 - previewOpacity) * 50}px)`;
+    }
+
+    let hintOpacity = progress < 0.15 ? Math.max(1 - (progress / 0.15), 0) : 0;
+
+    if (heroHint) {
+      heroHint.style.opacity = hintOpacity.toString();
+      heroHint.style.visibility = hintOpacity > 0.05 ? 'visible' : 'hidden';
+    }
+
+    if (heroOverlay) {
+      heroOverlay.style.background = `rgba(6, 7, 10, ${overlayOpacity})`;
+    }
+  }
 
   // --- SECTION 1: COURSE OCCUPANCY ---
   const occTrack = document.getElementById('track-occupancy');
