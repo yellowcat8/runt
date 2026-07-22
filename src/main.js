@@ -100,6 +100,25 @@ function handleScroll() {
     
     const phoneOcc = document.getElementById('phone-occ');
     const cardOcc = document.getElementById('card-occ');
+    const grid = occTrack.querySelector('.scroll-grid');
+    
+    // Centering and shifting animation (progress 0.00 -> 0.20)
+    if (grid && phoneOcc) {
+      const gridRect = grid.getBoundingClientRect();
+      const phoneRect = phoneOcc.getBoundingClientRect();
+      
+      const gridCenter = gridRect.left + gridRect.width / 2;
+      const phoneCenter = phoneRect.left + phoneRect.width / 2;
+      const currentShiftX = parseFloat(phoneOcc.style.getPropertyValue('--shift-x') || 0);
+      
+      const centerOffset = gridCenter - (phoneCenter - currentShiftX);
+      
+      let shiftX = 0;
+      if (progress < 0.20) {
+        shiftX = centerOffset * (1 - (progress / 0.20));
+      }
+      phoneOcc.style.setProperty('--shift-x', shiftX.toString());
+    }
     
     if (phoneOcc) {
       // Parallax scroll effect for the app screenshot background
@@ -149,6 +168,25 @@ function handleScroll() {
     
     const phoneCrew = document.getElementById('phone-crew');
     const cardBilling = document.getElementById('card-billing');
+    const grid = crewTrack.querySelector('.scroll-grid');
+    
+    // Centering and shifting animation (progress 0.00 -> 0.20)
+    if (grid && phoneCrew) {
+      const gridRect = grid.getBoundingClientRect();
+      const phoneRect = phoneCrew.getBoundingClientRect();
+      
+      const gridCenter = gridRect.left + gridRect.width / 2;
+      const phoneCenter = phoneRect.left + phoneRect.width / 2;
+      const currentShiftX = parseFloat(phoneCrew.style.getPropertyValue('--shift-x') || 0);
+      
+      const centerOffset = gridCenter - (phoneCenter - currentShiftX);
+      
+      let shiftX = 0;
+      if (progress < 0.20) {
+        shiftX = centerOffset * (1 - (progress / 0.20));
+      }
+      phoneCrew.style.setProperty('--shift-x', shiftX.toString());
+    }
     
     if (phoneCrew) {
       const panProgress = Math.min(progress / 0.45, 1);
@@ -192,19 +230,45 @@ function updateCues(prefix, progress) {
   
   if (!cue1 || !cue2 || !cue3) return;
   
-  if (progress < 0.25) {
-    cue1.classList.add('active');
-    cue2.classList.remove('active');
-    cue3.classList.remove('active');
-  } else if (progress >= 0.25 && progress < 0.5) {
-    cue1.classList.remove('active');
-    cue2.classList.add('active');
-    cue3.classList.remove('active');
-  } else {
-    cue1.classList.remove('active');
-    cue2.classList.remove('active');
-    cue3.classList.add('active');
+  let op1 = 0, op2 = 0, op3 = 0;
+  
+  // Cue 1 (0.15 -> 0.45, peak at 0.30)
+  if (progress >= 0.15 && progress <= 0.45) {
+    if (progress < 0.30) {
+      op1 = (progress - 0.15) / 0.15;
+    } else {
+      op1 = (0.45 - progress) / 0.15;
+    }
   }
+  
+  // Cue 2 (0.45 -> 0.70, peak at 0.575)
+  if (progress >= 0.45 && progress <= 0.70) {
+    if (progress < 0.575) {
+      op2 = (progress - 0.45) / 0.125;
+    } else {
+      op2 = (0.70 - progress) / 0.125;
+    }
+  }
+  
+  // Cue 3 (0.70 -> 0.95, peak at 0.825)
+  if (progress >= 0.70 && progress <= 0.95) {
+    if (progress < 0.825) {
+      op3 = (progress - 0.70) / 0.125;
+    } else {
+      op3 = (0.95 - progress) / 0.125;
+    }
+  }
+  
+  // Apply opacities, visibility, and translateY offset
+  setCueStyle(cue1, op1);
+  setCueStyle(cue2, op2);
+  setCueStyle(cue3, op3);
+}
+
+function setCueStyle(cue, opacity) {
+  cue.style.opacity = opacity.toString();
+  cue.style.visibility = opacity > 0.01 ? 'visible' : 'hidden';
+  cue.style.transform = `translateY(-50%) translateY(${(1 - opacity) * 20}px)`;
 }
 
 // 3. Stats Section Intersection Count-Up Animation (runt Metrics)
