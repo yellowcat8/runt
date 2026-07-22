@@ -286,17 +286,17 @@ p {
 .tagline {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--primary);
-  background: none;
-  padding: 0;
-  border-radius: 0;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  background: #0e1017;
+  padding: 0.45rem 1.1rem;
+  border-radius: 14px;
   width: fit-content;
-  border: none;
+  border: 1px solid #004FFF;
 }
 
 .tagline__dot {
@@ -962,6 +962,11 @@ p {
   border-bottom: 1px solid var(--border-glass);
   position: relative;
   margin-bottom: 8rem; /* prevent overlap with features section tagline */
+}
+
+.stats__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .stats__grid {
