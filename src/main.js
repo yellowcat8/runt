@@ -73,6 +73,8 @@ function handleScroll() {
       heroPreview.style.transform = `rotateX(10deg) rotateY(-22deg) rotateZ(6deg) translateY(${(1 - previewOpacity) * 50}px)`;
     }
 
+    let hintOpacity = progress < 0.15 ? Math.max(1 - (progress / 0.15), 0) : 0;
+
     if (heroHint) {
       heroHint.style.opacity = hintOpacity.toString();
       heroHint.style.visibility = hintOpacity > 0.05 ? 'visible' : 'hidden';
@@ -346,23 +348,23 @@ const setupHeroVideo = () => {
   video.muted = true;
   video.playsInline = true;
 
-  const seekToRunningContent = () => {
-    if (video.currentTime < 0.5) {
-      video.currentTime = 0.8;
+  const markPlaying = () => {
+    if (!video.paused && video.currentTime > 0.01) {
+      video.classList.add('is-playing');
     }
   };
 
-  video.addEventListener('loadedmetadata', seekToRunningContent);
-  video.addEventListener('loadeddata', seekToRunningContent);
+  video.addEventListener('timeupdate', markPlaying);
+  video.addEventListener('playing', markPlaying);
 
   const tryPlay = () => {
-    seekToRunningContent();
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
+      playPromise.then(() => {
+        markPlaying();
+      }).catch(() => {
         const playOnGesture = () => {
-          seekToRunningContent();
-          video.play().catch(() => {});
+          video.play().then(() => markPlaying()).catch(() => {});
         };
         window.addEventListener('scroll', playOnGesture, { passive: true, once: true });
         window.addEventListener('touchstart', playOnGesture, { passive: true, once: true });
