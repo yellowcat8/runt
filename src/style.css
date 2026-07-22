@@ -1245,14 +1245,14 @@ p {
 .faq-item__q {
   font-size: 1.1rem;
   font-weight: 700;
-  padding: 1.5rem 3.5rem;
+  padding: 1.5rem 2rem;
   cursor: pointer;
   list-style: none;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+  text-align: left;
   user-select: none;
 }
 
@@ -1267,14 +1267,10 @@ p {
   font-weight: 400;
   color: var(--primary);
   transition: transform 0.3s;
-  position: absolute;
-  right: 1.75rem;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .faq-item[open] .faq-item__q::after {
-  transform: translateY(-50%) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .faq-item__a {
@@ -1283,7 +1279,7 @@ p {
   line-height: 1.6;
   color: var(--text-muted);
   border-top: 1px solid rgba(255, 255, 255, 0.03);
-  text-align: center;
+  text-align: left;
   animation: slide-down 0.3s ease-out;
 }
 
