@@ -477,6 +477,10 @@ window.addEventListener('load', () => {
     current = (idx + imgs.length) % imgs.length;
     imgs[current].classList.add('fss-img--active');
     dots[current].classList.add('fss-dot--active');
+    // Sync tag active state
+    document.querySelectorAll('.fss-tag[data-slide]').forEach(tag => {
+      tag.classList.toggle('fss-tag--active', parseInt(tag.dataset.slide) === current);
+    });
   }
 
   function startAuto() {

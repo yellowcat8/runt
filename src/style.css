@@ -481,15 +481,7 @@ p {
 }
 
 .fss-phone-notch {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 28px;
-  background: #0f111a;
-  border-radius: 0 0 18px 18px;
-  z-index: 10;
+  display: none;
 }
 
 .fss-phone-screen {
@@ -520,21 +512,21 @@ p {
 .fss-play-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.07);
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
   cursor: pointer;
   transition: var(--transition-smooth);
   font-family: var(--font-family);
+  padding: 0;
 }
 
 .fss-play-btn:hover {
-  background: rgba(0, 79, 255, 0.15);
+  background: rgba(0, 79, 255, 0.18);
   border-color: rgba(0, 79, 255, 0.4);
   color: #6ea3ff;
 }
