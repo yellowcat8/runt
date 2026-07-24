@@ -471,13 +471,10 @@ p {
   position: relative;
   width: 280px;
   height: 590px;
-  background: #0f111a;
-  border: 4px solid #282b3d;
-  border-radius: 40px;
-  overflow: hidden;
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .fss-phone-notch {
@@ -488,8 +485,8 @@ p {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 36px;
+  overflow: visible;
+  border-radius: 0;
 }
 
 /* All phone images stacked, only active one visible */
@@ -498,10 +495,11 @@ p {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Show the entire image preserving aspect ratio */
   opacity: 0;
   transition: opacity 0.55s ease;
   display: block;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5)); /* Natural drop shadow for the phone shape */
 }
 
 .fss-img--active {
