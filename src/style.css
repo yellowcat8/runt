@@ -202,9 +202,9 @@ p {
 }
 
 .hero--scroll {
-  height: 300vh;
+  height: 250vh;
   padding: 0;
-  margin-bottom: 100vh; /* separate hero and section 1 to prevent overlapping */
+  margin-bottom: 15vh; /* 대폭 줄여서 공백 축소 */
 }
 
 .hero__sticky {
