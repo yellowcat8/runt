@@ -458,53 +458,85 @@ window.addEventListener('load', () => {
 });
 
 // =============================================
-// Feature Showcase Section (FSS) Carousel
+// Feature Showcase Section (FSS) — Image Carousel
 // =============================================
 (function initFSSCarousel() {
-  const slides = document.querySelectorAll('.fss-slide');
+  const imgs = document.querySelectorAll('.fss-phone-img');
   const dots = document.querySelectorAll('.fss-dot');
-  if (!slides.length || !dots.length) return;
+  const playBtn = document.getElementById('fss-play-btn');
+  if (!imgs.length || !dots.length) return;
 
-  let currentSlide = 0;
+  let current = 0;
+  let playing = true;
   let autoTimer = null;
+  const INTERVAL = 3500;
 
-  function goToSlide(idx) {
-    slides[currentSlide].classList.remove('fss-slide--active');
-    dots[currentSlide].classList.remove('fss-dot--active');
-    currentSlide = (idx + slides.length) % slides.length;
-    slides[currentSlide].classList.add('fss-slide--active');
-    dots[currentSlide].classList.add('fss-dot--active');
+  function goTo(idx) {
+    imgs[current].classList.remove('fss-img--active');
+    dots[current].classList.remove('fss-dot--active');
+    current = (idx + imgs.length) % imgs.length;
+    imgs[current].classList.add('fss-img--active');
+    dots[current].classList.add('fss-dot--active');
   }
 
   function startAuto() {
-    autoTimer = setInterval(() => {
-      goToSlide(currentSlide + 1);
-    }, 4500);
+    stopAuto();
+    autoTimer = setInterval(() => goTo(current + 1), INTERVAL);
+    playing = true;
+    updatePlayBtn();
   }
 
-  function resetAuto() {
+  function stopAuto() {
     clearInterval(autoTimer);
-    startAuto();
+    autoTimer = null;
+    playing = false;
+    updatePlayBtn();
+  }
+
+  function updatePlayBtn() {
+    if (!playBtn) return;
+    const pauseIcon = playBtn.querySelector('.fss-icon-pause');
+    const playIcon  = playBtn.querySelector('.fss-icon-play');
+    const label     = playBtn.querySelector('.fss-play-label');
+    if (playing) {
+      pauseIcon && (pauseIcon.style.display = '');
+      playIcon  && (playIcon.style.display  = 'none');
+      label     && (label.textContent        = '정지');
+      playBtn.setAttribute('aria-label', '정지');
+    } else {
+      pauseIcon && (pauseIcon.style.display = 'none');
+      playIcon  && (playIcon.style.display  = '');
+      label     && (label.textContent        = '재생');
+      playBtn.setAttribute('aria-label', '재생');
+    }
+  }
+
+  // Play/Pause button
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      if (playing) stopAuto();
+      else startAuto();
+    });
   }
 
   // Dot click
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
-      goToSlide(i);
-      resetAuto();
+      goTo(i);
+      startAuto(); // restart timer on manual nav
     });
   });
 
-  // Swipe support (mobile)
-  const carousel = document.getElementById('fss-carousel');
-  if (carousel) {
-    let touchStartX = 0;
-    carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    carousel.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 50) {
-        goToSlide(currentSlide + (dx < 0 ? 1 : -1));
-        resetAuto();
+  // Swipe (mobile)
+  const phoneFrame = document.querySelector('.fss-phone-frame');
+  if (phoneFrame) {
+    let sx = 0;
+    phoneFrame.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    phoneFrame.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) {
+        goTo(current + (dx < 0 ? 1 : -1));
+        startAuto();
       }
     }, { passive: true });
   }

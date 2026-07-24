@@ -82,12 +82,12 @@
               <div class="hero__preview-container" id="hero-preview">
                 <div class="preview-phone preview-phone--left">
                   <div class="preview-phone__inner">
-                    <img src="runt_course_reservation_ui_single.png" alt="runt 코스 점유율 화면" class="preview-phone__img" />
+                    <img src="hero_left.png" alt="runt 앱 화면" class="preview-phone__img" />
                   </div>
                 </div>
                 <div class="preview-phone preview-phone--right">
                   <div class="preview-phone__inner">
-                    <img src="runt_attendance_settlement_ui_single.png" alt="runt 크루 관리 화면" class="preview-phone__img" />
+                    <img src="hero_light.png" alt="runt 앱 화면" class="preview-phone__img" />
                   </div>
                 </div>
               </div>
@@ -102,79 +102,65 @@
         </div>
       </section>
 
-      <!-- Feature Showcase: 카드형 2단 레이아웃 (캐러셀) -->
+      <!-- Feature Showcase: 카드형 2단 레이아웃 (이미지 슬라이드 + 고정 텍스트) -->
       <section class="feature-showcase-section" id="track-occupancy">
         <div class="container">
-          <div class="fss-carousel" id="fss-carousel">
+          <div class="fss-card">
 
-            <!-- Slide 1: 코스 예약 -->
-            <div class="fss-slide fss-slide--active" id="fss-slide-0">
-              <div class="fss-card">
-                <!-- Left: Phone Mockup -->
-                <div class="fss-phone-wrap">
-                  <div class="fss-phone-frame">
-                    <div class="fss-phone-notch"></div>
-                    <div class="fss-phone-screen">
-                      <img src="runt_course_reservation_ui_single.png" alt="코스 예약 화면" class="fss-phone-img" />
-                    </div>
-                  </div>
+            <!-- Left: Phone Mockup with Cycling Images + Play/Pause -->
+            <div class="fss-phone-col">
+              <div class="fss-phone-frame">
+                <div class="fss-phone-notch"></div>
+                <div class="fss-phone-screen">
+                  <!-- 4 images cycling -->
+                  <img src="Attendance.png"  alt="원터치 출석"          class="fss-phone-img fss-img--active" data-idx="0" />
+                  <img src="money.png"       alt="정산"                 class="fss-phone-img"                data-idx="1" />
+                  <img src="ai_cource.jpeg"  alt="실시간 혼잡도"         class="fss-phone-img"                data-idx="2" />
+                  <img src="marathon.png"    alt="마라톤 대회 일정 확인" class="fss-phone-img"                data-idx="3" />
                 </div>
+              </div>
 
-                <!-- Right: Text Content -->
-                <div class="fss-content">
-                  <div class="fss-tags">
-                    <span class="fss-tag">예약</span>
-                    <span class="fss-tag">확정</span>
-                    <span class="fss-tag fss-tag--active">쾌적</span>
-                  </div>
-                  <h2 class="fss-title">원하는 코스를<br>미리 선점하세요</h2>
-                  <p class="fss-desc">원하는 공원 코스 시간대를 선점하고 크루 모임 일정을 등록하세요. 러너 밀도를 실시간 분석하여 혼잡하지 않은 최적의 러닝 스팟을 예약할 수 있습니다.</p>
-                  <ul class="fss-feature-list">
-                    <li><span class="fss-check">✓</span> 코스 시간대 사전 예약</li>
-                    <li><span class="fss-check">✓</span> 실시간 점유율(혼잡도) 표시</li>
-                    <li><span class="fss-check">✓</span> 크루 모임 일정 자동 공지</li>
-                  </ul>
-                </div>
+              <!-- Play / Pause button (below phone) -->
+              <button class="fss-play-btn" id="fss-play-btn" aria-label="정지">
+                <!-- Pause icon (default — playing) -->
+                <svg class="fss-icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="5" y="3" width="4" height="18" rx="1"/>
+                  <rect x="15" y="3" width="4" height="18" rx="1"/>
+                </svg>
+                <!-- Play icon (shown when paused) -->
+                <svg class="fss-icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+                  <polygon points="5,3 19,12 5,21"/>
+                </svg>
+                <span class="fss-play-label">정지</span>
+              </button>
+
+              <!-- Carousel Dots (below button) -->
+              <div class="fss-dots" id="fss-dots">
+                <button class="fss-dot fss-dot--active" data-slide="0" aria-label="슬라이드 1"></button>
+                <button class="fss-dot" data-slide="1" aria-label="슬라이드 2"></button>
+                <button class="fss-dot" data-slide="2" aria-label="슬라이드 3"></button>
+                <button class="fss-dot" data-slide="3" aria-label="슬라이드 4"></button>
               </div>
             </div>
 
-            <!-- Slide 2: 크루 관리 & 자동정산 -->
-            <div class="fss-slide" id="fss-slide-1">
-              <div class="fss-card fss-card--reversed">
-                <!-- Left: Phone Mockup -->
-                <div class="fss-phone-wrap">
-                  <div class="fss-phone-frame">
-                    <div class="fss-phone-notch"></div>
-                    <div class="fss-phone-screen">
-                      <img src="runt_attendance_settlement_ui_single.png" alt="출석 및 정산 화면" class="fss-phone-img" />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Right: Text Content -->
-                <div class="fss-content">
-                  <div class="fss-tags">
-                    <span class="fss-tag">출석</span>
-                    <span class="fss-tag">노쇼</span>
-                    <span class="fss-tag fss-tag--active">정산</span>
-                  </div>
-                  <h2 class="fss-title">크루 관리와<br>정산을 한번에</h2>
-                  <p class="fss-desc">모임 도착 시 원터치 출석 체크, 무단 불참 자동 트래킹, 영수증 한 장으로 참여 멤버에게 즉시 자동 정산 청구까지. 크루 운영의 모든 행정을 런트가 해결합니다.</p>
-                  <ul class="fss-feature-list">
-                    <li><span class="fss-check">✓</span> 원터치 출석 체크</li>
-                    <li><span class="fss-check">✓</span> 노쇼 자동 기록 및 경고</li>
-                    <li><span class="fss-check">✓</span> 회비 자동 정산 청구</li>
-                  </ul>
-                </div>
+            <!-- Right: Static Unified Text -->
+            <div class="fss-content">
+              <div class="fss-tags">
+                <span class="fss-tag">출석</span>
+                <span class="fss-tag">정산</span>
+                <span class="fss-tag">코스 예약</span>
+                <span class="fss-tag fss-tag--active">마라톤</span>
               </div>
+              <h2 class="fss-title">크루 운영의 모든 것을<br>런트 하나로</h2>
+              <p class="fss-desc">출석 체크부터 자동 정산, 실시간 코스 혼잡도, 마라톤 대회 일정까지. 러닝 크루 운영에 필요한 모든 기능을 하나의 앱에서 해결하세요.</p>
+              <ul class="fss-feature-list">
+                <li><span class="fss-check">✓</span> 원터치 출석 체크 &amp; 노쇼 자동 관리</li>
+                <li><span class="fss-check">✓</span> 영수증 한 장으로 자동 정산 청구</li>
+                <li><span class="fss-check">✓</span> 실시간 코스 혼잡도(점유율) 확인</li>
+                <li><span class="fss-check">✓</span> 전국 마라톤 대회 일정 조회</li>
+              </ul>
             </div>
 
-          </div>
-
-          <!-- Carousel Dots -->
-          <div class="fss-dots" id="fss-dots">
-            <button class="fss-dot fss-dot--active" data-slide="0" aria-label="슬라이드 1"></button>
-            <button class="fss-dot" data-slide="1" aria-label="슬라이드 2"></button>
           </div>
         </div>
       </section>

@@ -441,53 +441,30 @@ p {
 }
 
 /* =============================================
-   Feature Showcase Section (FSS) — 캐러셀 카드
+   Feature Showcase Section (FSS)
+   좌: 폰 목업(이미지 순환) + 재생/정지 + 도트
+   우: 고정 텍스트
    ============================================= */
 .feature-showcase-section {
-  padding: 6rem 0 4rem 0;
+  padding: 6rem 0 5rem 0;
   background: var(--bg-dark);
   border-top: 1px solid var(--border-glass);
 }
 
-/* Carousel wrapper */
-.fss-carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Each slide */
-.fss-slide {
-  display: none;
-  animation: fss-fadein 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fss-slide--active {
-  display: block;
-}
-
-@keyframes fss-fadein {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Card: 2-col layout */
+/* 2-column card */
 .fss-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   align-items: center;
-  min-height: 560px;
 }
 
-/* Reversed: content left, phone right — same visual for slide 2 (phone still left) */
-.fss-card--reversed {
-  /* keep phone on left */
-}
-
-/* ---- Phone Mockup ---- */
-.fss-phone-wrap {
+/* ---- Left column: phone + controls ---- */
+.fss-phone-col {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  gap: 1.25rem;
 }
 
 .fss-phone-frame {
@@ -500,7 +477,7 @@ p {
   overflow: hidden;
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255,255,255,0.05);
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .fss-phone-notch {
@@ -516,27 +493,87 @@ p {
 }
 
 .fss-phone-screen {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-radius: 36px;
 }
 
+/* All phone images stacked, only active one visible */
 .fss-phone-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.55s ease;
   display: block;
 }
 
-/* ---- Text Content ---- */
+.fss-img--active {
+  opacity: 1;
+}
+
+/* ---- Play / Pause button ---- */
+.fss-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  font-family: var(--font-family);
+}
+
+.fss-play-btn:hover {
+  background: rgba(0, 79, 255, 0.15);
+  border-color: rgba(0, 79, 255, 0.4);
+  color: #6ea3ff;
+}
+
+/* ---- Dots ---- */
+.fss-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fss-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.fss-dot--active {
+  width: 28px;
+  background: var(--primary);
+}
+
+.fss-dot:hover:not(.fss-dot--active) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---- Right column: static text ---- */
 .fss-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* Tag badges */
 .fss-tags {
   display: flex;
   gap: 0.5rem;
@@ -562,7 +599,6 @@ p {
   color: #6ea3ff;
 }
 
-/* Title */
 .fss-title {
   font-size: 2.8rem;
   font-weight: 800;
@@ -571,7 +607,6 @@ p {
   color: var(--text-primary);
 }
 
-/* Description */
 .fss-desc {
   font-size: 1.05rem;
   line-height: 1.7;
@@ -579,7 +614,6 @@ p {
   max-width: 440px;
 }
 
-/* Feature list */
 .fss-feature-list {
   list-style: none;
   display: flex;
@@ -611,46 +645,12 @@ p {
   flex-shrink: 0;
 }
 
-/* ---- Carousel Dots ---- */
-.fss-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 3rem;
-  padding-bottom: 0.5rem;
-}
-
-.fss-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.fss-dot--active {
-  width: 28px;
-  background: var(--primary);
-}
-
-.fss-dot:hover:not(.fss-dot--active) {
-  background: rgba(255, 255, 255, 0.4);
-}
-
 /* ---- Responsive ---- */
 @media (max-width: 900px) {
   .fss-card {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     text-align: center;
-  }
-  .fss-phone-frame {
-    width: 220px;
-    height: 462px;
   }
   .fss-tags {
     justify-content: center;
@@ -665,13 +665,14 @@ p {
     padding: 4rem 0 3rem 0;
   }
   .fss-phone-frame {
-    width: 180px;
-    height: 378px;
+    width: 200px;
+    height: 420px;
   }
   .fss-title {
     font-size: 2rem;
   }
 }
+
 
 /* Sticky Scroll Track & Grid */
 .scroll-track {
