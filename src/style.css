@@ -1429,6 +1429,7 @@ p {
 /* FAQ Section */
 .faq {
   background: transparent;
+  scroll-margin-top: var(--header-height);
 }
 
 .faq {
@@ -1436,7 +1437,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8vh;
+  margin-bottom: 2vh;
   padding: 2.5rem 0;
 }
 
@@ -1525,13 +1526,13 @@ p {
 
 /* CTA Section */
 .cta {
-  min-height: 80vh;
+  min-height: unset;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 4rem 0 8rem 0;
+  padding: 3rem 0 4rem 0;
 }
 
 .cta__card {
