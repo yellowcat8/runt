@@ -531,6 +531,16 @@ window.addEventListener('load', () => {
     });
   });
 
+  // Tag click (출석 / 정산 / 혼잡도 / 마라톤)
+  document.querySelectorAll('.fss-tag[data-slide]').forEach(tag => {
+    tag.style.cursor = 'pointer';
+    tag.addEventListener('click', () => {
+      const idx = parseInt(tag.dataset.slide);
+      goTo(idx);
+      startAuto();
+    });
+  });
+
   // Swipe (mobile)
   const phoneFrame = document.querySelector('.fss-phone-frame');
   if (phoneFrame) {
