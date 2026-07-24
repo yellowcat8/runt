@@ -440,12 +440,246 @@ p {
   display: block;
 }
 
+/* =============================================
+   Feature Showcase Section (FSS) — 캐러셀 카드
+   ============================================= */
+.feature-showcase-section {
+  padding: 6rem 0 4rem 0;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-glass);
+}
+
+/* Carousel wrapper */
+.fss-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Each slide */
+.fss-slide {
+  display: none;
+  animation: fss-fadein 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fss-slide--active {
+  display: block;
+}
+
+@keyframes fss-fadein {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card: 2-col layout */
+.fss-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  min-height: 560px;
+}
+
+/* Reversed: content left, phone right — same visual for slide 2 (phone still left) */
+.fss-card--reversed {
+  /* keep phone on left */
+}
+
+/* ---- Phone Mockup ---- */
+.fss-phone-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fss-phone-frame {
+  position: relative;
+  width: 280px;
+  height: 590px;
+  background: #0f111a;
+  border: 4px solid #282b3d;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.fss-phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: #0f111a;
+  border-radius: 0 0 18px 18px;
+  z-index: 10;
+}
+
+.fss-phone-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 36px;
+}
+
+.fss-phone-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- Text Content ---- */
+.fss-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tag badges */
+.fss-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fss-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+}
+
+.fss-tag--active {
+  background: rgba(0, 79, 255, 0.15);
+  border-color: rgba(0, 79, 255, 0.4);
+  color: #6ea3ff;
+}
+
+/* Title */
+.fss-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+/* Description */
+.fss-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 440px;
+}
+
+/* Feature list */
+.fss-feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.fss-feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.fss-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0, 79, 255, 0.15);
+  border: 1px solid rgba(0, 79, 255, 0.35);
+  color: #6ea3ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ---- Carousel Dots ---- */
+.fss-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-bottom: 0.5rem;
+}
+
+.fss-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.fss-dot--active {
+  width: 28px;
+  background: var(--primary);
+}
+
+.fss-dot:hover:not(.fss-dot--active) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .fss-card {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  .fss-phone-frame {
+    width: 220px;
+    height: 462px;
+  }
+  .fss-tags {
+    justify-content: center;
+  }
+  .fss-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-showcase-section {
+    padding: 4rem 0 3rem 0;
+  }
+  .fss-phone-frame {
+    width: 180px;
+    height: 378px;
+  }
+  .fss-title {
+    font-size: 2rem;
+  }
+}
+
 /* Sticky Scroll Track & Grid */
 .scroll-track {
   position: relative;
   height: 380vh; /* Reduced height for snappier scroll transitions */
   margin-bottom: 80vh; /* Adjusted gap to keep spacing clean */
 }
+
 
 .sticky-wrapper {
   position: sticky;
